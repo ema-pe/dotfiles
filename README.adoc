@@ -9,23 +9,32 @@ every day.
 
 == Requirements
 
-My dotfiles are distro-agnostic, but `dotfiles` script is written specifically
-to work with **Fedora**. Custom scripts under `bin` are written to work with any
-computer with Bash, also the configuration files of several programs.
+These dotfiles can be used on any operating system, because they are just
+configuration files, it depends on what you are looking for. I use a simple Bash
+script, called `dotfiles`, that automatically installs all dotfiles and it sets
+up my computer to be ready to use. This script is specifically created to work
+with *Fedora* and it is tailored to my needs, so you may not like it or it won't
+work on your system.
+
+Scripts under the `bin` directory are written to work with any operating system
+with Bash, GAWK or Python. 
 
 == Installation
 
 === Dotfiles installation
 
-My dotfiles are organized as modules. Every module is a small Bash script that
-can do many things, usually they:
+My dotfiles are organized as modules. A module is a Bash script that can do any
+things, it can:
 
-* Install software (via `dnf`);
-* Install configuration files;
-* Activate something (like services).
+* Run commands (eg. `dnf`, `curl` or `wget`);
+* Install configuration files (usually by linking them);
+* Manage services (via systemd).
 
-For a list of available modules run `dotfiles list`. Some modules have a
-reserved folder, which contains specific configuration files.
+If you want to install a module, you need to run: `dotfiles install <module>`.
+With `dotfiles list` you can get a list of available modules.
+
+Note that a module may be not have a dedicated subdirectory (as example the
+module `gtk` doesn't have `gtk` directory).
 
 === Repository installation
 
@@ -99,65 +108,18 @@ an OpenDocument file to a pure text file.
 
 '''
 
-=== vim
+=== bluetooth
 
-I use VIM as my text editor for programming and writing. I found it very
-productive and efficient.
-
-My link:vim/vimrc[vimrc] file is well documented, I also use some plugins:
-
-* https://github.com/junegunn/goyo.vim[*goyo.vim*]: for writing without
-distractions.
-* https://github.com/NLKNguyen/papercolor-theme[*papercolor-theme*]: a VIM color
-scheme inspired by Google's Material Design.
-* https://github.com/hdima/python-syntax[*python-syntax*]: better Python syntax
-highlighting.
-* https://github.com/reedes/vim-pencil[*vim-pencil*]: better movements for
-writing prose.
-* https://github.com/justinmk/vim-syntax-extra[*vim-syntax-extra*]: better C
-syntax highlighting.
-* https://github.com/tmhedberg/SimpylFold[*SimplylFold*]: better Python folding.
-* https://git.zx2c4.com/password-store/tree/contrib/vim[*redact_pass*]: improve
-security when editing a password file with VIM. It requires `pass` package.
-* https://github.com/habamax/vim-asciidoctor[*vim-asciidoctor*]: better Asciidoc
-syntax highlighting and also support for folding.
-
-Both *goyo.vim* and *vim-pencil* are not automatically started with VIM, instead
-you need to run `vim -c Writing`.
+This module just disables Bluetooth service via systemd, because it is enabled
+by default on Fedora.
 
 '''
 
-=== focuswriter
+=== clean
 
-link:https://gottcode.org/focuswriter[FocusWriter] is a simple, distraction free
-text editor. I use it to write short stories and novels, with a custom theme and
-configuration.
-
-This modules will install `focuswriter`, and copy my configuration and custom
-theme.
-
-WARNING: My custom theme and configuration have my username hard-coded!
-
-'''
-
-=== tlp
-
-TLP is a useful package to manage power and extends battery life. It works well
-with other power management software (like `xfce4-powermanager`).
-
-This package can be found via Fedora official repository with the name `tlp`.
-
-The default configuration file, located on `/etc/default/tlp` is good, but I've
-done some customization (I'm using a Thinkpad laptop).
-
-The basic commands available are:
-
-* Start tlp: `sudo tlp start` (but there is also a unit file for systemd);
-* Check the configuration: `sudo tlp stat`;
-* Manage Wi-Fi and Bluetooth: `wifi [on/off]` and `bluetooth [on/off]`.
-
-This module will install tlp, copy my configuration, start tlp and enable the
-unit file (for systemd).
+This module just removes via `dnf` all pre-installed Fedora packaged that I
+don't use. For a list of these packages, open the script and go to the `clean`
+module.
 
 '''
 
@@ -165,154 +127,6 @@ unit file (for systemd).
 
 This module installs the `dotfiles` script to `~/.local/bin` folder. It is
 supposed that this path is added previously to `PATH` environment variable.
-
-'''
-
-=== clean
-
-This module simply removes via `dnf` all pre-installed Fedora packaged that I
-don't use. For a list of these packages, open the script and go to the `clean`
-module.
-
-'''
-
-=== gpg
-
-I use GnuPG to manager my PGP keys. GnuPG have also an agent called
-`gpg-agent`, I use it also for SSH support. There is some configuration because
-out-of-the-box Fedora uses `ssh-agent` and `gnome-keyring`.
-
-The GnuPG file configuration is located at `~/.gnupg/gpg.conf`, the agent
-configuration is located at `~/.gnupg/gpg-agent.conf`. This module installs
-them.
-
-There is a default daemon enabled of `gpg-agent`, but I prefer to manage the
-daemon with `systemd --user`. Luckily GnuPG comes with default files for
-systemd, but they are not enabled. This module enables them.
-
-The module also enables `gpg-agent` for SSH support. It is necessary to
-specify the environment variable `SSH_AUTH_SOCK` to point to `gpg-agent`
-socket. This line is already added in my custom `.bashrc` file:
-
-    export SSH_AUTH_SOCK="/run/user/$(id -u)/gnupg/S.gpg-agent.ssh"
-
-I use Xfce as desktop environment. There is only one problem: it auto starts
-`ssh-agent`. I don't want it, so I kill it every time Xfce is started. This
-line is already added in my custom `.bash_profile` file:
-
-    pkill ssh-agent
-
-This module also installs `pinentry-gtk`, because I don't like the default
-installed that uses ncurses.
-
-'''
-
-=== lightdm
-
-https://github.com/canonical/lightdm[LightDM] is a desktop manager easy to use,
-flexible and lightweight. I use it simply because it is pre-installed on Fedora.
-
-I prefer an auto login method because the disk is encrypted and the computer
-have only one user. I do not want to type two password when I boot the computer,
-and the second is useless because if someone find the disk password he can grab
-the data without problems. A display manager is also useless in my case because
-I have only one user, but I keep it to have a "modern" desktop.
-
-IMPORTANT: **DO NOT LOCK THE SCREEN**. If you lock the screen and go back to the
-greeter, it crashes. I don't know why.
-
-'''
-
-=== xfce4
-
-This modules installs my configuration of Xfce desktop environment. Some
-applications, like `xfce4-terminal` or `thunar` are configured by a different
-module.
-
-It is difficult to configure Xfce applications, because they do not use a plain
-text configuration, instead they use `xfconf`.
-
-This modules install my `xfce4-panel` configuration, font and size settings for
-GTK applications and `xfce4-desktop`.
-
-'''
-
-=== xfce4-keyboard-shortcuts
-
-This module installs my custom application shortcuts to Xfce. It is a distinct
-module because I change often these keybindings. These are the shortcuts (for an
-updated list always check the source code!):
-
-* _<Super>v_: `vlc`
-* _<Super>r_: `xfce4-appfinder --disable-server --collapsed`
-* _<Super>u_: `xfce4-taskmanager`
-* _<Super>e_: `xfce4-terminal --drop-down`
-* _<Super>t_: `xfce4-terminal --maximize`
-* _<Super>l_: `screen-off`
-* _<Shift>Print_: `xfce4-screenshooter --window`
-* _<Primary>Print_: `xfce4-screenshooter --region`
-* _<Alt>Print_: `xfce4-screenshooter --region`
-* _Print_: `xfce4-screenshooter --fullscreen`
-* _<Super>s_: `telegram-desktop`
-* _<Super>f_: `thunar`
-* _<Super>x_: `mousepad`
-* _<Super>q_: `firefox-tmp`
-* _<Super>w_: `firefox`
-* _<Super>m_: `thunderbird`
-* _<Super>r_: `xfce4-appfinder --collapsed`
-
-'''
-
-=== xfce4-terminal
-
-This module installs my custom theme, but it doesn't activate it. Other settings
-are not touched.
-
-'''
-
-=== thunar
-
-This module installs, via `xfconf-query`, my Thunar configuration. Note that if
-you change the configuration via Thunar GUI, the new configuration will not be
-synched to dotfiles. You need to manually update the configuration!
-
-I use some custom send-to actions, they are basically a wrapper to the original
-scripts:
-
-* link:xfce4/Thunar/send-to/osmgpx.desktop[*osmgpx*]: a shortcut to
-link:bin/osmgpx[`osmgpx`] script.
-
-'''
-
-=== xfwm4
-
-I use Thinble Xfwm theme. In my repository under link:xfwm4[xfwm4] diretory you
-can find the theme, but the original project is hosted on
-link:https://paldepind.deviantart.com/art/Thinble-362276066[DevianArt]. The
-following text is copied from DevianArt.
-
-Thinble is a Xfwm theme with no title bar and a thin border. It was created to
-be a good looking, simple and space efficient window theme for people who mainly
-manage their windows using key bindings.
-
-==== Features
-
-* Minimal and space efficient appearance;
-* No large title bar that is otherwise mostly just wasting space;
-* Border of a reasonable size for moving/resizing windows using the mouse;
-* Slightly darker border on active windows for distinguishing between them an
-  inactive windows;
-* Uses colors from your GTK-theme.
-
-==== Installation
-
-Copy link:xfwm4/thinble[`xfwm4/thinble`] directory to `~/.themes` for local
-installation or to `/usr/share/themes` for system-wide installation. Or better
-use my installer script!
-
-IMPORTANT: Make the title font very large, otherwise you might still be able to
-see the top of it in what is left of the title bar which does not look nice at
-all.
 
 '''
 
@@ -375,6 +189,257 @@ custom link:firefox/user.js[`user.js`] that overrides some options.
 This module will download the latest version of ghacks' `user.js` and move that
 file to the Firefox profile with suffix `default-release`. At the end it appends
 my custom options to `user.js` file on the profile.
+
+'''
+
+=== focuswriter
+
+link:https://gottcode.org/focuswriter[FocusWriter] is a simple, distraction free
+text editor. I use it to write short stories and novels, with a custom theme and
+configuration.
+
+This modules will install `focuswriter`, and copy my configuration and custom
+theme.
+
+WARNING: My custom theme and configuration have my username hard-coded!
+
+'''
+
+=== font
+
+This module installs Hack font on the system, but it doesn't activate it.
+
+'''
+
+=== git
+
+This module installs `git` and links the configuration.
+
+'''
+
+=== gpg
+
+I use GnuPG to manager my PGP keys. GnuPG have also an agent called
+`gpg-agent`, I use it also for SSH support. There is some configuration because
+out-of-the-box Fedora uses `ssh-agent` and `gnome-keyring`.
+
+The GnuPG file configuration is located at `~/.gnupg/gpg.conf`, the agent
+configuration is located at `~/.gnupg/gpg-agent.conf`. This module installs
+them.
+
+There is a default daemon enabled of `gpg-agent`, but I prefer to manage the
+daemon with `systemd --user`. Luckily GnuPG comes with default files for
+systemd, but they are not enabled. This module enables them.
+
+The module also enables `gpg-agent` for SSH support. It is necessary to
+specify the environment variable `SSH_AUTH_SOCK` to point to `gpg-agent`
+socket. This line is already added in my custom `.bashrc` file:
+
+    export SSH_AUTH_SOCK="/run/user/$(id -u)/gnupg/S.gpg-agent.ssh"
+
+I use Xfce as desktop environment. There is only one problem: it auto starts
+`ssh-agent`. I don't want it, so I kill it every time Xfce is started. This
+line is already added in my custom `.bash_profile` file:
+
+    pkill ssh-agent
+
+This module also installs `pinentry-gtk`, because I don't like the default
+installed that uses ncurses.
+
+'''
+
+=== gtk
+
+This module just installs and activate Arc-Dark GTK theme.
+
+'''
+
+=== icon
+
+This module just installs and activate `papirus-icon-theme` icon theme.
+
+'''
+
+=== lightdm
+
+https://github.com/canonical/lightdm[LightDM] is a desktop manager easy to use,
+flexible and lightweight. I use it simply because it is pre-installed on Fedora.
+
+I prefer an auto login method because the disk is encrypted and the computer
+have only one user. I do not want to type two password when I boot the computer,
+and the second is useless because if someone find the disk password he can grab
+the data without problems. A display manager is also useless in my case because
+I have only one user, but I keep it to have a "modern" desktop.
+
+IMPORTANT: **DO NOT LOCK THE SCREEN**. If you lock the screen and go back to the
+greeter, it crashes. I don't know why.
+
+'''
+
+=== packages
+
+This module adds RPM Fusion repository and install lots of application that I
+use and are not installed by default on Fedora. They are:
+
+* pass: a command line password manager that uses `git` and `gpg`;
+* thunderbird: a graphical email client;
+* vlc: THE video player;
+* youtube-dl: a command line to download videos and audios from many online
+  sources;
+* telegram-desktop: a Telegram client.
+
+'''
+
+=== python
+
+This module just installs the package `python3-docs`, because it is not
+installed by default on Fedora. I prefer to have offline documentation because
+the search function is faster than the online version, and it can be used
+without Internet connection.
+
+'''
+
+=== thunar
+
+This module installs, via `xfconf-query`, my Thunar configuration. Note that if
+you change the configuration via Thunar GUI, the new configuration will not be
+synched to dotfiles. You need to manually update the configuration!
+
+I use some custom send-to actions, they are basically a wrapper to the original
+scripts:
+
+* link:xfce4/Thunar/send-to/osmgpx.desktop[*osmgpx*]: a shortcut to
+link:bin/osmgpx[`osmgpx`] script.
+
+'''
+
+=== tlp
+
+TLP is a useful package to manage power and extends battery life. It works well
+with other power management software (like `xfce4-powermanager`).
+
+This package can be found via Fedora official repository with the name `tlp`.
+
+The default configuration file, located on `/etc/default/tlp` is good, but I've
+done some customization (I'm using a Thinkpad laptop).
+
+The basic commands available are:
+
+* Start tlp: `sudo tlp start` (but there is also a unit file for systemd);
+* Check the configuration: `sudo tlp stat`;
+* Manage Wi-Fi and Bluetooth: `wifi [on/off]` and `bluetooth [on/off]`.
+
+This module will install tlp, copy my configuration, start tlp and enable the
+unit file (for systemd).
+
+'''
+
+=== vim
+
+I use VIM as my text editor for programming and writing. I found it very
+productive and efficient.
+
+My link:vim/vimrc[vimrc] file is well documented, I also use some plugins:
+
+* https://github.com/junegunn/goyo.vim[*goyo.vim*]: for writing without
+distractions.
+* https://github.com/NLKNguyen/papercolor-theme[*papercolor-theme*]: a VIM color
+scheme inspired by Google's Material Design.
+* https://github.com/hdima/python-syntax[*python-syntax*]: better Python syntax
+highlighting.
+* https://github.com/reedes/vim-pencil[*vim-pencil*]: better movements for
+writing prose.
+* https://github.com/justinmk/vim-syntax-extra[*vim-syntax-extra*]: better C
+syntax highlighting.
+* https://github.com/tmhedberg/SimpylFold[*SimplylFold*]: better Python folding.
+* https://git.zx2c4.com/password-store/tree/contrib/vim[*redact_pass*]: improve
+security when editing a password file with VIM. It requires `pass` package.
+* https://github.com/habamax/vim-asciidoctor[*vim-asciidoctor*]: better Asciidoc
+syntax highlighting and also support for folding.
+
+Both *goyo.vim* and *vim-pencil* are not automatically started with VIM, instead
+you need to run `vim -c Writing`.
+
+'''
+
+=== xfce4
+
+This modules installs my configuration of Xfce desktop environment. Some
+applications, like `xfce4-terminal` or `thunar` are configured by a different
+module.
+
+It is difficult to configure Xfce applications, because they do not use a plain
+text configuration, instead they use `xfconf`.
+
+This modules install my `xfce4-panel` configuration, font and size settings for
+GTK applications and `xfce4-desktop`.
+
+'''
+
+=== xfce4-keyboard-shortcuts
+
+This module installs my custom application shortcuts to Xfce. It is a distinct
+module because I change often these keybindings. These are the shortcuts (for an
+updated list always check the source code!):
+
+* _<Super>v_: `vlc`
+* _<Super>r_: `xfce4-appfinder --disable-server --collapsed`
+* _<Super>u_: `xfce4-taskmanager`
+* _<Super>e_: `xfce4-terminal --drop-down`
+* _<Super>t_: `xfce4-terminal --maximize`
+* _<Super>l_: `screen-off`
+* _<Shift>Print_: `xfce4-screenshooter --window`
+* _<Primary>Print_: `xfce4-screenshooter --region`
+* _<Alt>Print_: `xfce4-screenshooter --region`
+* _Print_: `xfce4-screenshooter --fullscreen`
+* _<Super>s_: `telegram-desktop`
+* _<Super>f_: `thunar`
+* _<Super>x_: `mousepad`
+* _<Super>q_: `firefox-tmp`
+* _<Super>w_: `firefox`
+* _<Super>m_: `thunderbird`
+* _<Super>r_: `xfce4-appfinder --collapsed`
+
+'''
+
+=== xfce4-terminal
+
+This module installs my custom theme, but it doesn't activate it. Other settings
+are not touched.
+
+'''
+
+=== xfwm4
+
+I use Thinble Xfwm theme. In my repository under link:xfwm4[xfwm4] diretory you
+can find the theme, but the original project is hosted on
+link:https://paldepind.deviantart.com/art/Thinble-362276066[DevianArt]. The
+following text is copied from DevianArt.
+
+Thinble is a Xfwm theme with no title bar and a thin border. It was created to
+be a good looking, simple and space efficient window theme for people who mainly
+manage their windows using key bindings.
+
+==== Features
+
+* Minimal and space efficient appearance;
+* No large title bar that is otherwise mostly just wasting space;
+* Border of a reasonable size for moving/resizing windows using the mouse;
+* Slightly darker border on active windows for distinguishing between them an
+  inactive windows;
+* Uses colors from your GTK-theme.
+
+==== Installation
+
+Copy link:xfwm4/thinble[`xfwm4/thinble`] directory to `~/.themes` for local
+installation or to `/usr/share/themes` for system-wide installation. Or better
+use my installer script!
+
+IMPORTANT: Make the title font very large, otherwise you might still be able to
+see the top of it in what is left of the title bar which does not look nice at
+all.
+
+'''
 
 == Makefile
 

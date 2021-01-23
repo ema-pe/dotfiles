@@ -392,9 +392,9 @@ ed_module_vim() {
   git -C "$REPO_PATH" submodule update --init "$plugins_path/vim-pencil"
 }
 
-MODULES["python"]="install Python extra stuff"
+MODULES["python"]="install Python offline documentation"
 ed_module_python() {
-  ed_install "python3-docs" "python3-mypy" "python3-flake8"
+  ed_install "python3-docs"
 }
 
 MODULES["xfce4-terminal"]="link configuration of xfce4-terminal"

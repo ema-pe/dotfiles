@@ -11,8 +11,8 @@ if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
 
-# Add home directory to PATH.
-export PATH="$PATH:/home/emanuele/.local/bin"
+# Add local bin directory and Go bin directory to PATH.
+export PATH="$PATH:/home/emanuele/.local/bin:/home/emanuele/.local/go/bin"
 
 # Because ssh-agent is automatically started by Xfce, and I don't know how to
 # disable it.

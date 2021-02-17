@@ -99,7 +99,7 @@ set termguicolors
 colorscheme PaperColor
 
 " It highlights initial and final spaces and tabs.
-set list lcs=trail:‧,tab:→→
+set list lcs=trail:‧,tab:<->
 
 " }}}
 
@@ -117,18 +117,13 @@ highlight ColorColumn ctermbg=red
 " Wrap lines longer than 80 characters.
 set textwidth=80
 
-" Tabs are spaces.
-set expandtab
-
 " Allows to insert tab with 'Shift+Tab'.
 inoremap <S-Tab> <C-V><Tab>
 
-" Default indent options:
-" - tabstop (or ts) is the number of spaces that a <Tab> is made of;
-" - shiftwidth (or sw) is the number of spaces to use when indenting.
-" I use these settings to work with Python.
+" Default indent options (used with Python).
 set tabstop=4
 set shiftwidth=4
+set expandtab
 
 " Automatic indentation.
 set autoindent
@@ -147,6 +142,10 @@ augroup SpecificIndentations
 
     " For HTML files, I prefere to keep long lines.
     autocmd Filetype html setlocal textwidth=0
+
+    " For Go files I always use tabs.
+    autocmd Filetype go setlocal tabstop=4 noexpandtab
+    autocmd Filetype go inoremap <S-Tab> <C-V><Space><Space><Space><Space>
 augroup END
 
 " }}}

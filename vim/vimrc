@@ -99,7 +99,7 @@ set termguicolors
 colorscheme PaperColor
 
 " It highlights initial and final spaces and tabs.
-set list lcs=trail:‧,tab:<->
+set list lcs=trail:‧,tab:››
 
 " }}}
 

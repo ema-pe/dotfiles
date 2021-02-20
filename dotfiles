@@ -517,16 +517,16 @@ ed_module_font() {
 
   # Download the font files.
   ed_download "$hack_dl_url" "$xz_file" ||
-    ed_elog "Failed to download '$hack_dl_url'" "$EXIT_FAILURE" "rf --force $xz_file"
+    ed_elog "Failed to download '$hack_dl_url'" "$EXIT_FAILURE" "rm --force $xz_file"
 
   # Extract the pack and install the fonts.
   xz --decompress "$xz_file" ||
-    ed_elog "Failed to decompress '$xz_file'" "$EXIT_FAILURE" "rf --force $xz_file"
+    ed_elog "Failed to decompress '$xz_file'" "$EXIT_FAILURE" "rm --force $xz_file"
 
   mkdir --parents "$dest_path"
 
   tar --extract --file "$tar_file" --directory "$dest_path" ||
-    ed_elog "Failed to extract '$tar_file'" "$EXIT_FAILURE" "rf --force $tar_file"
+    ed_elog "Failed to extract '$tar_file'" "$EXIT_FAILURE" "rm --force $tar_file"
 
   rm --force "$tar_file" # Remove downloaded file.
 

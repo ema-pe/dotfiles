@@ -217,6 +217,18 @@ This module installs `git` and links the configuration.
 
 '''
 
+=== go
+
+This modules installs https://golang.org[Go] development tools. You can check
+which version will be installed with `dotfiles list | grep go`. The version and
+architecture is fixed in the installer script.
+
+After installed, you need to run `bash` module, because it updated `PATH`
+environment variable with `~/.local/go/bin`, the place with Go binaries are
+installed.
+
+'''
+
 === gpg
 
 I use GnuPG to manager my PGP keys. GnuPG have also an agent called

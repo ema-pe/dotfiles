@@ -284,6 +284,30 @@ ed_module_gtk() {
   ed_xfconf "xsettings" "/Net/ThemeName" "Arc-Dark"
 }
 
+MODULES["go"]="install Go 1.16 language tools"
+ed_module_go() {
+  local godir="$HOME_PATH/.local/go"
+
+  if [[ -a "$godir" ]]; then
+    ed_wlog "directory '$godir' already exists!"
+    return
+  fi
+
+  local tmp="$(mktemp)" gobin="go1.16.linux-amd64.tar.gz"
+  local go_url="https://golang.org/dl/$gobin"
+
+  # The version and arch are fixed in the string, it need to be updated manually.
+  ed_download "$go_url" "$tmp" ||
+    ed_elog "Failed to download '$go_url'" "$EXIT_FAILURE" "rm --force $tmp"
+
+  tar --directory "$HOME_PATH/.local/" --extract --gzip --file "$tmp" ||
+    ed_elog "Failed to extract '$tmp'! Check manually that file."
+
+  rm --force "$tmp"
+
+  ed_log "Go tools installed, make sure to update PATH with 'bash' module!"
+}
+
 MODULES["icon"]="install 'papirus-icon-theme' package and enable it"
 ed_module_icon() {
   ed_install "papirus-icon-theme"

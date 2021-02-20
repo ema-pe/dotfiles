@@ -293,8 +293,10 @@ ed_module_go() {
     return
   fi
 
-  local tmp="$(mktemp)" gobin="go1.16.linux-amd64.tar.gz"
+  local tmp gobin="go1.16.linux-amd64.tar.gz"
   local go_url="https://golang.org/dl/$gobin"
+
+  tmp="$(mktemp)"
 
   # The version and arch are fixed in the string, it need to be updated manually.
   ed_download "$go_url" "$tmp" ||

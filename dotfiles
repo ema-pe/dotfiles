@@ -286,7 +286,7 @@ ed_module_gtk() {
 
 MODULES["go"]="install Go 1.16 language tools"
 ed_module_go() {
-  local godir="$HOME_PATH/.local/go"
+  local godir="$HOME_PATH/.local/opt/go"
 
   if [[ -a "$godir" ]]; then
     ed_wlog "directory '$godir' already exists!"
@@ -302,7 +302,9 @@ ed_module_go() {
   ed_download "$go_url" "$tmp" ||
     ed_elog "Failed to download '$go_url'" "$EXIT_FAILURE" "rm --force $tmp"
 
-  tar --directory "$HOME_PATH/.local/" --extract --gzip --file "$tmp" ||
+  mkdir -p "$HOME_PATH/.local/opt"
+
+  tar --directory "$HOME_PATH/.local/opt" --extract --gzip --file "$tmp" ||
     ed_elog "Failed to extract '$tmp'! Check manually that file."
 
   rm --force "$tmp"

@@ -167,6 +167,8 @@ alias web-archive="wget -p -k"
 # Prints all installed packages that requires the given package.
 alias why="rpm -q --whatrequires"
 
+alias p="pass"
+
 # }}}
 
 # vim:foldmethod=marker

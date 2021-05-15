@@ -309,6 +309,10 @@ ed_module_go() {
 
   rm --force "$tmp"
 
+  # Link custom Go environment information.
+  mkdir -p "$HOME_PATH/.config/go"
+  ed_make_symlink "$REPO_PATH/go/env" "$HOME_PATH/.config/go/env"
+
   ed_log "Go tools installed, make sure to update PATH with 'bash' module!"
 }
 

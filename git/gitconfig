@@ -4,7 +4,7 @@
 [user]
     name = Emanuele Petriglia
     email = inbox@emanuelepetriglia.com
-    signingkey = 16A43647 # My subkey for signing.
+    signingkey = 0xF3DB36543FEA3143
 [commit]
     gpgSign = true
 [push]

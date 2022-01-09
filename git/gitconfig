@@ -23,5 +23,3 @@
 
     # Update every submodule (needs a commit if there is an update!)
     submodule-update = submodule foreach git pull origin master
-[url "git@git.sapienzaapps.it:"]
-	insteadOf = https://git.sapienzaapps.it/

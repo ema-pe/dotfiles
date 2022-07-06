@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+#
+# This script generates a food journal entry for the next 7 days starting from
+# the current date.
+#
+# Copyright (c) 2022 Emanuele Petriglia <inbox@emanuelepetriglia.com>
+# All rights reserved. This file is licensed under the MIT license.
+
+import string
+import locale
+from datetime import date, timedelta
+
+def main():
+    # To have weekday name in italian.
+    locale.setlocale(locale.LC_ALL, "it_IT.utf8")
+
+    start = date.today()
+    end = start + timedelta(days=6)
+
+    filename = start.strftime("%Y%m%d") + "-" + end.strftime("%Y%m%d") + ".adoc"
+    with open(filename, mode="w") as out:
+        out.write(f"= Settimana dal {start} al {end}\n")
+        out.write("\n")
+        out.write("== Fonte proteiche settimanali\n")
+        out.write("\n")
+        out.write("* Carne rossa:\n")
+        out.write("* Carne bianca:\n")
+        out.write("* Pesce:\n")
+        out.write("* Uovo singolo:\n")
+        out.write("* Albume:\n")
+        out.write("* Legumi:\n")
+        out.write("\n")
+        out.write("== Registro giornaliero\n")
+        for i in range(0, 7):
+            out.write("\n")
+            current = date.today() + timedelta(days=i)
+            out.write(f"=== {current} ({string.capwords(current.strftime('%A'))})\n")
+            out.write("\n")
+            out.write("==== Colazione\n")
+            out.write("\n")
+            out.write("*\n")
+            out.write("\n")
+            out.write("==== Pranzo\n")
+            out.write("\n")
+            out.write("*\n")
+            out.write("\n")
+            out.write("==== Merenda\n")
+            out.write("\n")
+            out.write("*\n")
+            out.write("\n")
+            out.write("==== Cena\n")
+            out.write("\n")
+            out.write("*\n")
+            out.write("\n")
+
+if __name__ == "__main__":
+    main()

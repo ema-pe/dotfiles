@@ -23,6 +23,3 @@
 [submodule "vim/pack/plugins/start/vim-asciidoctor"]
 	path = vim/pack/plugins/start/vim-asciidoctor
 	url = https://github.com/habamax/vim-asciidoctor.git
-[submodule "vim/pack/plugins/start/julia-vim"]
-	path = vim/pack/plugins/start/julia-vim
-	url = https://github.com/JuliaEditorSupport/julia-vim.git

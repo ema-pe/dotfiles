@@ -598,6 +598,14 @@ ed_module_firefox() {
   cat "$custom_user_js" >> "$dest_user_js" # Note: append, don't overwrite!
 }
 
+MODULES["plymouth"]="set details theme for plymouth (boot splash screen)"
+ed_module_plymouth() {
+  if [[ "$(plymouth-set-default-theme)" != "details" ]]; then
+    sudo plymouth-set-default-theme -R details ||
+      ed_elog "Failed to set 'details' theme for plymouth"
+  fi
+}
+
 # }}}
 
 # Command line interface {{{

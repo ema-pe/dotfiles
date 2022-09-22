@@ -116,6 +116,13 @@ list-dreams() {
   gawk -e 'FNR == 1 { sub(".adoc", "", FILENAME); sub("= ", "", $0); printf "%-12s - %s\n", FILENAME, $0 }' -- *.adoc
 }
 
+# It converts HEIC image files to JPEG. It requires libheif.
+heic2jpg() {
+  for image in *.HEIC ; do
+    heif-convert $image ${image/%.HEIC/.jpg}
+  done
+}
+
 # }}}
 
 # Bash history {{{

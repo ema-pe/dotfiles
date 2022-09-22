@@ -119,7 +119,7 @@ list-dreams() {
 # It converts HEIC image files to JPEG. It requires libheif.
 heic2jpg() {
   for image in *.HEIC ; do
-    heif-convert $image ${image/%.HEIC/.jpg}
+    heif-convert "$image" "${image/%.HEIC/.jpg}"
   done
 }
 
@@ -131,6 +131,7 @@ heic2jpg() {
 export HISTTIMEFORMAT="[%F %T] "
 
 # Set default hledger journal.
+# shellcheck disable=SC2155
 export LEDGER_FILE="$HOME/Documents/writing/notebook/finance/$(date +%Y).journal"
 
 # Force prompt to write history after every command.

@@ -132,7 +132,7 @@ export HISTTIMEFORMAT="[%F %T] "
 
 # Set default hledger journal.
 # shellcheck disable=SC2155
-export LEDGER_FILE="$HOME/Documents/writing/notebook/finance/$(date +%Y).journal"
+export LEDGER_FILE="$HOME/Documents/writing/notebook/finance/current.journal"
 
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss

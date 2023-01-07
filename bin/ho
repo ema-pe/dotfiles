@@ -337,6 +337,9 @@ class HoMobileSession():
         for activity in result['detailList']:
             # Get only date, not time.
             amount = activity['amount']
+            if amount == None: # Some entry have amount = null, skip them!
+                continue
+
             data.append(Activity(
                 amount=amount if activity['source'] == 'VP' else -amount,
                 date=datetime.fromisoformat(activity['day']).date(),

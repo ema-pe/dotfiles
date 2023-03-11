@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 #
-# This script does a backup of some directories from my home folder to my backup
-# external HDD.
+# This script backups some directories from my laptop to two external HDDs.
 #
-# Copyright (C) 2018-2019 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
+# Copyright (C) 2018-2021 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
 # rights reserved. This file is licensed under the MIT license.
 
-readonly hdd_id="6bada27e-026d-424c-b3f7-ad323ace4574"
+#readonly HDD1="/run/media/$USER/6bada27e-026d-424c-b3f7-ad323ace4574"
+readonly HDD2="/run/media/$USER/bravo"
+
+#readonly hdd_id="6bada27e-026d-424c-b3f7-ad323ace4574"
 readonly hdd="/run/media/$USER/$hdd_id"
 
 # Prints a message to the standard error and exits with error code 1.
@@ -39,7 +41,18 @@ backup_folder() {
   [[ "$src" ]] || error "Missing source directory!"
   [[ "$dst" ]] || error "Missing destination directory!"
 
-  rsync --human-readable --archive --delete --verbose "$src" "$dst"
+  rsync --dry-run --human-readable --human-readable --archive --verbose --delete "$src" "$dst"
+
+  read -p "Apply changes (y/n)?" apply
+  case "$apply" in
+    y|Y) ;;
+    n|N) ;;
+    * ) ;;
+  esac
+
+  rsync --dry-run --human-readable --human-readable --archive --verbose --delete "$src" "$dst"
+
+  echo "Done $src"
 }
 
 [[ "$(command -v rsync)" ]] || error "Missing rsync command! Is it installed?"
@@ -50,5 +63,5 @@ backup_folder() {
 # Backup objectives
 #
 
-backup_folder "$HOME/Documents/gps_tracks/" "$hdd/file/gps_tracks/"
-backup_folder "$HOME/Documents/writing/"    "$hdd/file/writing/"
+backup_folder "$HOME/Documents/"       "$hdd/documents/current/"
+backup_folder "$HOME/Pictures/2023/"    "$hdd/immagini/foto/2023/"

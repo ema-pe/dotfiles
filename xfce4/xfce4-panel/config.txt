@@ -1,8 +1,12 @@
 /configver 2
 /panels [<1>]
+/panels/dark-mode true
+/panels/panel-1/background-style uint32 0
 /panels/panel-1/disable-struts false
+/panels/panel-1/icon-size uint32 0
 /panels/panel-1/length uint32 100
-/panels/panel-1/plugin-ids [<1>, <3>, <15>, <4>, <10>, <6>, <2>, <5>]
+/panels/panel-1/nrows uint32 1
+/panels/panel-1/plugin-ids [<1>, <3>, <15>, <4>, <6>, <10>, <2>, <5>]
 /panels/panel-1/position 'p=6;x=0;y=0'
 /panels/panel-1/position-locked true
 /panels/panel-1/size uint32 38
@@ -20,19 +24,24 @@
 /plugins/plugin-2/enable-keyboard-shortcuts true
 /plugins/plugin-3 'tasklist'
 /plugins/plugin-3/flat-buttons true
+/plugins/plugin-3/grouping uint32 0
 /plugins/plugin-3/include-all-workspaces true
+/plugins/plugin-3/middle-click uint32 0
 /plugins/plugin-3/show-handle false
 /plugins/plugin-3/show-labels false
+/plugins/plugin-3/show-wireframes false
 /plugins/plugin-3/sort-order uint32 2
+/plugins/plugin-3/window-scrolling false
 /plugins/plugin-4 'pager'
 /plugins/plugin-4/miniature-view false
+/plugins/plugin-4/numbering false
 /plugins/plugin-4/rows uint32 2
 /plugins/plugin-4/workspace-scrolling false
 /plugins/plugin-5 'clock'
-/plugins/plugin-5/digital-format '%d %b %H:%M'
+/plugins/plugin-5/digital-format '%d %b %Y %H:%M'
+/plugins/plugin-5/mode uint32 2
 /plugins/plugin-6 'systray'
-/plugins/plugin-6/names-hidden @av []
-/plugins/plugin-6/names-ordered [<'seapplet'>, <'thunar'>, <'vlc'>, <'task manager'>, <'xfce terminal'>, <'telegram-desktop'>, <'ibus-ui-gtk3'>, <'xfce4-power-manager'>, <'networkmanager applet'>]
-/plugins/plugin-6/show-frame false
-/plugins/plugin-6/size-max uint32 30
+/plugins/plugin-6/icon-size 0
+/plugins/plugin-6/known-legacy-items [<'wi-fi network connection “casa demonte” active: casa demonte (76%)'>]
+/plugins/plugin-6/single-row false
 /plugins/plugin-6/square-icons true

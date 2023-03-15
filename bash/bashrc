@@ -30,6 +30,10 @@ export SSH_AUTH_SOCK="/run/user/$EUID/gnupg/S.gpg-agent.ssh"
 # Default editor.
 export EDITOR=vim
 
+export ANDROID_HOME=/home/emanuele/.local/opt/android/
+export ANDROID_SDK_ROOT=/home/emanuele/.local/opt/android/
+export GRADLE_OPTS="-Dorg.gradle.daemon=false"
+
 # }}}
 
 # Small scripts {{{

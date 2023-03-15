@@ -17,6 +17,13 @@ export PATH="$PATH:/home/emanuele/.local/bin"
 # Add Go specific paths to PATH.
 export PATH="$PATH:/home/emanuele/.local/opt/go/bin:/home/emanuele/go/bin"
 
+# Add Flutter/Dart specific paths to PATH.
+export PATH="$PATH:/home/emanuele/.local/opt/flutter/bin"
+
+# Add Android specific paths to PATH (required by Flutter).
+export PATH="$PATH:/home/emanuele/.local/opt/android/platform-tools"
+export PATH="$PATH:/home/emanuele/.local/opt/android/cmdline-tools/latest/bin"
+
 # Because ssh-agent is automatically started by Xfce, and I don't know how to
 # disable it.
 pkill ssh-agent

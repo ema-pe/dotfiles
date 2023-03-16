@@ -8,6 +8,7 @@
 
 import string
 import locale
+import sys
 from datetime import date, timedelta
 
 def main():
@@ -15,6 +16,13 @@ def main():
     locale.setlocale(locale.LC_ALL, "it_IT.utf8")
 
     start = date.today()
+    if len(sys.argv) == 2:
+        try:
+            start = start + timedelta(days=int(sys.argv[1]))
+        except ValueError:
+            print(f"Invalid given number: {sys.argv[1]}")
+            exit(1)
+
     end = start + timedelta(days=6)
 
     filename = start.strftime("%Y%m%d") + "-" + end.strftime("%Y%m%d") + ".adoc"
@@ -33,7 +41,7 @@ def main():
         out.write("== Registro giornaliero\n")
         for i in range(0, 7):
             out.write("\n")
-            current = date.today() + timedelta(days=i)
+            current = start + timedelta(days=i)
             out.write(f"=== {current} ({string.capwords(current.strftime('%A'))})\n")
             out.write("\n")
             out.write("==== Colazione\n")

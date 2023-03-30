@@ -32,8 +32,8 @@ readonly PROGRAM="${0##*/}"
 readonly COMMAND="$1"
 
 # Target of this script.
-readonly TARGET_DISTRIBUTION="Fedora"
-readonly TARGET_VERSION=32
+readonly TARGET_DISTRIBUTION="Fedora Linux"
+readonly TARGET_VERSION=37
 
 # Associative array of available modules (module name -> module description).
 declare -A MODULES

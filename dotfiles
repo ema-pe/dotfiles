@@ -253,7 +253,7 @@ ed_module_packages() {
     sudo dnf install "$repository"
   fi
 
-  ed_install "pass" "thunderbird" "vlc" "youtube-dl" "telegram-desktop"
+  ed_install "pass" "thunderbird" "vlc" "ffmpeg" "telegram-desktop"
 }
 
 MODULES["focuswriter"]="install and configure FocusWriter"
@@ -269,6 +269,9 @@ ed_module_focuswriter() {
   dst_theme_path="$HOME_PATH/.local/share/GottCode/FocusWriter"
   dst_conf_path="$HOME_PATH/.config/GottCode"
   src_path="$REPO_PATH/focuswriter"
+
+  mkdir -p $dst_theme_path
+  mkdir -p $dst_conf_path
 
   # Theme.
   ed_make_symlink "$src_path/emanuele.theme" \
@@ -436,8 +439,8 @@ ed_module_xfce4-terminal() {
   dest_path="$HOME_PATH/.config/xfce4/terminal"
   src_path="$REPO_PATH/xfce4/xfce4-terminal"
 
-  ed_make_symlink "$src_path/terminalrc" "$dest_path"
-  ed_make_symlink "$src_path/colorschemes" "$dest_path"
+  #ed_make_symlink "$src_path/terminalrc" "$dest_path"
+  #ed_make_symlink "$src_path/colorschemes" "$dest_path"
 }
 
 MODULES["xfce4"]="link configuration of various Xfce apps"

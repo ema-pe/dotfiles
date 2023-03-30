@@ -282,6 +282,21 @@ ed_module_focuswriter() {
                   "$dst_conf_path/FocusWriter.conf"
 }
 
+MODULES["youtube-dl"]="install updated youtube-dl"
+ed_module_youtube-dl() {
+  local url dest_dir dest
+
+  url="https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux"
+  dest_dir="$HOME_PATH/.local/bin"
+  dest="$dest_dir/youtube-dl"
+
+  mkdir -p "$dest_dir"
+
+  wget --quiet "$url" --output-document "$dest"
+
+  chmod u+x "$dest"
+}
+
 MODULES["gtk"]="enable Arc-Dark GTK+ theme"
 ed_module_gtk() {
   ed_xfconf "xsettings" "/Net/ThemeName" "Arc-Dark"

@@ -127,6 +127,22 @@ heic2jpg() {
   done
 }
 
+# scanned makes a PDF file look scanned using ImageMagick.
+scanned() {
+  local input output
+
+  input="$1"
+  output="$2"
+
+  if [[ "$(command -v convert)" ]] ; then
+    # Thanks to: https://gist.github.com/andyrbell/25c8632e15d17c83a54602f6acde2724?permalink_comment_id=3302435#gistcomment-3302435
+    convert -density 130 "$input" -rotate 0.33 -attenuate 0.15 \
+      +noise Multiplicative -colorspace Gray "$output"
+  else
+    echo "This script requires ImageMagick." >&2
+  fi
+}
+
 # }}}
 
 # Bash history {{{

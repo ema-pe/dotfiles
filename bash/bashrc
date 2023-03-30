@@ -203,6 +203,9 @@ alias why="rpm -q --whatrequires"
 
 alias p="pass"
 
+# Start Firefox with University Work profile (it must exists before!).
+alias university-work="firefox --profile ~/.cache/mozilla/firefox/university-work/"
+
 # }}}
 
 # vim:foldmethod=marker

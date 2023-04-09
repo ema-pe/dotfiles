@@ -253,16 +253,13 @@ ed_module_packages() {
     sudo dnf install "$repository"
   fi
 
-  ed_install "pass" "thunderbird" "vlc" "ffmpeg" "telegram-desktop"
+  ed_install "pass" "thunderbird" "vlc" "ffmpeg" "telegram-desktop" "gxpsee" \
+    "ffmpeg" "ImageMagick" "hledger" "syncthing"
 }
 
 MODULES["focuswriter"]="install and configure FocusWriter"
 ed_module_focuswriter() {
-  ed_install "focuswriter"
-
-  # Basic fonts and spelling.
-  ed_install "gnu-free-serif-fonts"
-  ed_install "hunspell-it"
+  ed_install "focuswriter" "gnu-free-serif-fonts" "hunspell-it"
 
   local dst_theme_path dst_conf_path src_path
 

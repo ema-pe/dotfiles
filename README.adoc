@@ -453,6 +453,16 @@ all.
 
 '''
 
+=== Crypto policies
+
+This module reverses the update of the crypto policies starting from Fedora 33.
+The hotspots of the University of Milano-Bicocca do not support some (more
+secure) algorithms, so I have to use the weaker ones. For more information go to
+the link:https://fedoraproject.org/wiki/Changes/StrongCryptoSettings2[Fedora
+wiki page]. At the core, the module executes the following command:
+
+    $ sudo update-crypto-policies --set DEFAULT:FEDORA32
+
 == Makefile
 
 I also provide a custom link:Makefile[Makefile] file to lint all scripts in my

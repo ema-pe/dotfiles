@@ -621,6 +621,19 @@ ed_module_plymouth() {
   fi
 }
 
+MODULES["crypto-policies"]="set default crypto policies to support university Wi-Fi"
+ed_modules_crypto-policies() {
+  # Starting with Fedora 33, the default crypto policies have been made
+  # stricter, but this breaks the Wi-Fi connection with the hotspots of the
+  # University of Milano-Bicocca. So I have to revert the changes and use weaker
+  # algorithms.
+  #
+  # More info: https://fedoraproject.org/wiki/Changes/StrongCryptoSettings2
+  if [[ "$(update-crypto-policies --check)" != "DEFAULT:FEDORA32" ]]; then
+    sudo update-crypto-policies --set DEFAULT:FEDORA32
+  fi
+}
+
 # }}}
 
 # Command line interface {{{

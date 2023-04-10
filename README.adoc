@@ -459,6 +459,8 @@ wiki page]. At the core, the module executes the following command:
 
     $ sudo update-crypto-policies --set DEFAULT:FEDORA32
 
+'''
+
 === youtube-dl
 
 This module downloads and installs a version of youtube-dl called

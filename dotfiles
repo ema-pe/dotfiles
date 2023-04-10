@@ -254,7 +254,7 @@ ed_module_packages() {
   fi
 
   ed_install "pass" "thunderbird" "vlc" "ffmpeg" "telegram-desktop" "gxpsee" \
-    "ffmpeg" "ImageMagick" "hledger" "syncthing"
+    "ffmpeg" "ImageMagick" "hledger" "syncthing" "ShellCheck"
 }
 
 MODULES["focuswriter"]="install and configure FocusWriter"

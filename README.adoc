@@ -80,12 +80,16 @@ script before use!
 
 Available scripts:
 
+* link:bin/adoc2latex[*adoc2latex*]: a small GAWK script that converts an
+Asciidoc file to LaTeX.
 * link:bin/aenami[*aenami*]: a small Python script that downloads the lastest
 Alena Aenami's artwork from ArtStation.
 * link:bin/backup[*backup*]: this script syncs some data from my laptop to my
 external HDD.
 * link:bin/firefox-tmp[*firefox-tmp*]: this script launches a temporary Mozilla
 Firefox instance (useful for testing or debugging).
+* link:bin/food-entry[*food-entry*]: a small Python script to generate a new
+food entry in the food journal.
 * link:bin/gandi-aliases[*gandi-aliases*]: this script manages aliases for my
 email hosted on https://www.gandi.net/en[Gandi.net].
 * link:bin/goodmorningitalia[*goodmorningitalia*]: this script automatically
@@ -98,13 +102,13 @@ newsletter.
 destinarion directory, copying all files except for FLAC files, that are
 converted to OGG using `ffmpeg`. The reason of this script is that my mobile
 phone has a limited space.
+* link:bin/odt2adoc[*odt2adoc*]: a small Python script that extracts text from
+an OpenDocument file to a pure text file.
+* link:bin/open-gpxsee[*open-gpxsee*]: a small Python script to open `gpxsee`
+with GPX files according to the location of the first point (Rome or Milan).
 * link:bin/osmgpx[*osmgpx*]: this script filters and uploads a list of GPX
 files.
 * link:bin/screen-off[*screen-off*]: this simple script turns off the screen.
-* link:bin/adoc2latex[*adoc2latex*]: a small GAWK script that converts an
-Asciidoc file to LaTeX.
-* link:bin/odt2adoc[*odt2adoc*]: a small Python script that extracts text from
-an OpenDocument file to a pure text file.
 
 '''
 

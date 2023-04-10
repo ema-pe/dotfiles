@@ -221,18 +221,6 @@ This module installs `git` and links the configuration.
 
 '''
 
-=== go
-
-This modules installs https://golang.org[Go] development tools. You can check
-which version will be installed with `dotfiles list | grep go`. The version and
-architecture is fixed in the installer script.
-
-After installed, you need to run `bash` module, because it updated `PATH`
-environment variable with `~/.local/go/bin`, the place with Go binaries are
-installed.
-
-'''
-
 === gpg
 
 I use GnuPG to manager my PGP keys. GnuPG have also an agent called
@@ -300,9 +288,13 @@ use and are not installed by default on Fedora. They are:
 * pass: a command line password manager that uses `git` and `gpg`;
 * thunderbird: a graphical email client;
 * vlc: THE video player;
-* youtube-dl: a command line to download videos and audios from many online
-  sources;
 * telegram-desktop: a Telegram client.
+* ffmpeg: the swiss-knife tool for audio and video.
+* gpxsee: a GUI to see GPX tracks on maps.
+* ImageMagick: the must have to handle images.
+* hledger: a tool to manage accounting.
+* syncthing: sync data between devices.
+* ShellCheck: linter for Bash scripts.
 
 '''
 
@@ -466,6 +458,11 @@ the link:https://fedoraproject.org/wiki/Changes/StrongCryptoSettings2[Fedora
 wiki page]. At the core, the module executes the following command:
 
     $ sudo update-crypto-policies --set DEFAULT:FEDORA32
+
+=== youtube-dl
+
+This module downloads and installs a version of youtube-dl called
+link:https://github.com/yt-dlp/yt-dlp[yt-dlp], a fork with update extractors.
 
 == Makefile
 

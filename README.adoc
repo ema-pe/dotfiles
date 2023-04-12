@@ -295,6 +295,7 @@ use and are not installed by default on Fedora. They are:
 * hledger: a tool to manage accounting.
 * syncthing: sync data between devices.
 * ShellCheck: linter for Bash scripts.
+* libheif-tools: tools to handle HEIC file images.
 
 '''
 

@@ -206,6 +206,9 @@ alias p="pass"
 # Start Firefox with University Work profile (it must exists before!).
 alias university-work="firefox --profile ~/.cache/mozilla/firefox/university-work/"
 
+# Start a new window with a terminal with the same PWD of the parent.
+alias terminal="xfce4-terminal"
+
 # }}}
 
 # vim:foldmethod=marker

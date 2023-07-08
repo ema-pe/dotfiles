@@ -236,10 +236,6 @@ let g:asciidoctor_folding = 1
 
 " It starts writing mode.
 function! WritingActivate()
-
-    " Disable syntax hightlighting, because it may cause lag with large docs.
-    syntax off
-
     " Soft line wrap for writing by default.
     let g:pencil#wrapModeDefault = 'soft'
 
@@ -251,7 +247,8 @@ function! WritingActivate()
 
     call pencil#init()
 
-    Goyo 100x50
+    " Start Goyo with the default size.
+    Goyo
 endfunc
 
 command! Writing call WritingActivate()

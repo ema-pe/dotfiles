@@ -172,7 +172,7 @@ alias music-dl='youtube-dl -x --audio-format vorbis'
 alias renamefull="rename 's/ /_/g' * && rename 'y/A-Z/a-z/' *"
 
 # It normalize images name.
-alias renameimages="exiv2 -v -r 'IMG_%Y%m%d_%H%M%S'"
+alias renameimages="exiv2 -v --Force -r 'IMG_%Y%m%d_%H%M%S'"
 
 alias py="python3"
 

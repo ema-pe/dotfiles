@@ -171,8 +171,11 @@ alias music-dl='youtube-dl -x --audio-format vorbis'
 # It replace spaces to underscore and convert the text in lowercase.
 alias renamefull="rename 's/ /_/g' * && rename 'y/A-Z/a-z/' *"
 
-# It normalize images name.
+# Rename image files with "IMG_YYYYMMDD_HHMMSS" schema.
 alias renameimages="exiv2 -v --Force -r 'IMG_%Y%m%d_%H%M%S'"
+
+# Rename MOV files with "VID_YYYYMMDD_HHMMSS" schema.
+alias renamemov="exiftool -ext mov '-FileName<CreationDate' -d 'VID_%Y%m%d_%H%M%S.%%e'"
 
 alias py="python3"
 

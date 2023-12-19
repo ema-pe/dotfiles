@@ -500,7 +500,6 @@ ed_module_xfce4-keyboard-shortcuts() {
 
   # Note I apply only application shortcuts, not WM's shortcuts!
   ed_xfconf "$channel" "$prefix/<Super>v" "vlc"
-  ed_xfconf "$channel" "$prefix/<Super>r" "xfce4-appfinder --disable-server --collapsed"
   ed_xfconf "$channel" "$prefix/<Super>u" "xfce4-taskmanager"
   ed_xfconf "$channel" "$prefix/<Super>e" "xfce4-terminal --drop-down"
   ed_xfconf "$channel" "$prefix/<Super>t" "xfce4-terminal --maximize"

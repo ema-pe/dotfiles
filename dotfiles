@@ -786,8 +786,10 @@ ed_cmd_install() {
 
 # Check operating system name and version.
 if [[ -e "/etc/os-release" ]]; then
+  # shellcheck disable=SC1091 # this is intentional
   source "/etc/os-release"
 elif [[ -e "/etc/usr/lib/os-release" ]]; then
+  # shellcheck disable=SC1091 # this is intentional
   source "/etc/usr/lib/os-release"
 else
   ed_elog "Failed to establish the current operating system name and version"

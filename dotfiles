@@ -140,6 +140,18 @@ ed_install() {
 
 # Filesystem commons {{{{
 
+# A rm's wrapper with default options applied.
+#
+# Parameters: the same of rm(1).
+#
+# Example:
+#     ed_rm "some_file" "some_directory"
+ed_rm() {
+  rm --verbose --force --recursive "$@"
+
+  return $?
+}
+
 # It creates a simlink of a directory or file.
 #
 # Parameters:
@@ -504,6 +516,7 @@ ed_module_xfce4-keyboard-shortcuts() {
   ed_xfconf "$channel" "$prefix/<Super>w" "firefox"
   ed_xfconf "$channel" "$prefix/<Super>m" "thunderbird"
   ed_xfconf "$channel" "$prefix/<Super>r" "xfce4-appfinder --collapsed"
+  ed_xfconf "$channel" "$prefix/<Super>z" "zotero"
 }
 
 MODULES["thunar"]="install Thunar configuration"
@@ -633,6 +646,47 @@ ed_modules_crypto-policies() {
   if [[ "$(update-crypto-policies --check)" != "DEFAULT:FEDORA32" ]]; then
     sudo update-crypto-policies --set DEFAULT:FEDORA32
   fi
+}
+
+MODULES["zotero"]="download and install Zotero"
+ed_module_zotero() {
+  local zotero_version="6.0.30"
+  local zotero_url="https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64&version=$zotero_version"
+  local zotero_archive="Zotero-${zotero_version}_linux-x86_64.tar.bz2"
+  local zotero_path="$HOME/.local/opt/zotero"
+
+  # Download the archive form zotero.org.
+  ed_rm "/tmp/$zotero_archive" || ed_elog "failed to remove \"/tmp/$zotero_archive\""
+
+  ed_download "$zotero_url" "/tmp/$zotero_archive" ||
+    ed_elog "failed to download \"$zotero_url\""
+
+  # Extract the archive to "~/.local/opt/zotero".
+  ed_rm "$zotero_path" || ed_elog "failed to remove \"$zotero_path\""
+
+  mkdir --verbose --parent "$zotero_path" ||
+    ed_elog "failed to create \"$zotero_path\""
+
+  tar -xf "/tmp/$zotero_archive" -C "$zotero_path" ||
+    ed_elog "failed to extract \"/tmp/$zotero_archive\" to \"$zotero_path\""
+
+  # Tar extracts the archive on a directory called Zotero_linux-x86_64. I need
+  # to move the content up one level and get rid of this directory.
+  # shellcheck disable=SC2015 # this is intentional
+  mv "$zotero_path/Zotero_linux-x86_64/"/* "$zotero_path" &&
+    ed_rm "$zotero_path/Zotero_linux-x86_64" ||
+    ed_elog "Failed to extract \"$zotero_path/Zotero_linux-x86_64\" to \"$zotero_path\""
+
+  # Update the "zotero.desktop" icon absolute path.
+  bash "$zotero_path/set_launcher_icon"
+
+  # Applicazion launcher, it can be found in "Office" section.
+  ed_make_symlink "$zotero_path/zotero.desktop" \
+                  "$HOME/.local/share/applications/zotero.desktop"
+
+  # Add Zotero executable to $PATH, so I can run it from command line.
+  ed_make_symlink "$zotero_path/zotero" \
+                  "$HOME/.local/bin/zotero"
 }
 
 # }}}

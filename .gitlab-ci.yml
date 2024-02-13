@@ -1,4 +1,4 @@
-image: fedora:30
+image: fedora:37
 
 before_script:
   - cat /etc/os-release
@@ -8,14 +8,3 @@ before_script:
 lint:
   stage: test
   script: make --jobs $(nproc) lint
-
-# Run this job only if variable 'GOODMORNINGITALIA' is given. This job
-# subscribes to goodmorningitalia.it for a one month free trial.
-goodmorningitalia:
-  only:
-    variables:
-      - $GOODMORNINGITALIA
-  stage: build
-  script:
-    - dnf --assumeyes install curl bash
-    - bin/goodmorningitalia

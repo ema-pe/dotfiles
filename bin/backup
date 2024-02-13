@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=all
 #
 # This script backups some directories from my laptop to two external HDDs.
 #

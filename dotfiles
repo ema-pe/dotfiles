@@ -20,9 +20,11 @@ set -e
 CURRENT_MODULE=""
 
 # Full path of dotfiles repository.
+# shellcheck disable=SC2155
 readonly REPO_PATH="$(dirname "$(readlink -f "$0")")"
 
 # Full path of user's home dir.
+# shellcheck disable=SC2155
 readonly HOME_PATH="$(xdg-user-dir)"
 
 # Program's name.
@@ -280,8 +282,8 @@ ed_module_focuswriter() {
   dst_conf_path="$HOME_PATH/.config/GottCode"
   src_path="$REPO_PATH/focuswriter"
 
-  mkdir -p $dst_theme_path
-  mkdir -p $dst_conf_path
+  mkdir -p "$dst_theme_path"
+  mkdir -p "$dst_conf_path"
 
   # Theme.
   ed_make_symlink "$src_path/emanuele.theme" \

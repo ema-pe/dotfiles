@@ -5,8 +5,8 @@
 # How it works: it uses `mktemp` to create a temporary directory and give it to
 # Firefox. When the user closes Firefox, that directory is destroyed.
 #
-# Copyright (C) 2019 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All right
-# reserved. This file is licensed under the MIT license.
+# Copyright (C) 2019-2024 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
+# rights reserved. This file is licensed under the MIT license.
 
 readonly PROGRAM="${0##*/}"
 
@@ -27,7 +27,7 @@ _EOF
 
 # Spawn a temporary Firefox instance.
 spawn_firefox_instance() {
-  readonly temp_dir="$(mktemp --directory)"
+  temp_dir="$(mktemp --directory)"
 
   trap clean_temp_dir EXIT
 

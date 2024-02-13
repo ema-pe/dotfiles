@@ -21,7 +21,8 @@ flake8_opts = --max-line-length=80 --extend-ignore=E261
 mypy_opts = --strict --no-incremental --cache-dir=/dev/null
 
 # Get only the files that are written in Bash.
-bash_scripts = $(shell grep -rl -e "^\#!/usr/bin/env bash")
+# Note that I need to use a double $ to avoid Makefile variable expansion!
+bash_scripts = $(shell grep -rl -e "^\#!/usr/bin/env bash" | grep -v -e "\.swp$$")
 
 # Get only the files that are written in Python 3.
 python_scripts = $(shell grep -rl bin/* -e "^\#!/usr/bin/env python3")

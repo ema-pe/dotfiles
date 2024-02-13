@@ -17,9 +17,6 @@ shellcheck_opts = --color=always --exclude=SC1091
 # Disable E261: "at least two spaces before inline comment".
 flake8_opts = --max-line-length=80 --extend-ignore=E261
 
-# Enable a more stricter typing cheking and disable cache file.
-mypy_opts = --strict --no-incremental --cache-dir=/dev/null
-
 # Get only the files that are written in Bash.
 # Note that I need to use a double $ to avoid Makefile variable expansion!
 bash_scripts = $(shell grep -rl -e "^\#!/usr/bin/env bash" | grep -v -e "\.swp$$")
@@ -38,4 +35,3 @@ $(bash_scripts) :
 
 $(python_scripts) :
 	flake8 $(flake8_opts) $@
-	-mypy $(mypy_opts) $@

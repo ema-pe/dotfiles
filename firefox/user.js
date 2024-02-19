@@ -204,7 +204,10 @@ user_pref("mousewheel.default.delta_multiplier_y", 200);
 user_pref("network.trr.mode", 5);
 
 /** Enable dark theme for devtools. */
-user_pres("devtools.theme", "dark");
+user_pref("devtools.theme", "dark");
+
+/** Enable compat mode for the toolbar. */
+user_pref("browser.compactmode.show", true);
 
 
 user_pref("_user.js.parrot", "user settings loaded");

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# Bash completion for 'sync-repo' script.
+#
+# Copyright (c) 2024 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
+# rights reserved. This file is licensed under the MIT license.
+
+complete -W '-h --help --dry-run to-remote from-remote' sync-repo

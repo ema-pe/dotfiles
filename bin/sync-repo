@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090 # Don't follow other source files.
+#
+# Small utility to synchronize two repository between local and remote.
+#
+# Copyright (C) 2024 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
+# rights reserved. This file is licensed under the MIT license.
+
+# Program name.
+readonly PROGRAM="sync-repo"
+
+# Configuration file with 'LOCAL' and 'REMOTE' environment variables.
+readonly CONFIG_FILE="./$PROGRAM-config"
+
+# Optional exclude file with exclude patterns for rsync.
+readonly EXCLUDE_FILE="./$PROGRAM-exclude"
+
+# Default options for rsync. This variables may be updated before rsync is
+# launched.
+RSYNC_OPTS="--archive --human-readable --human-readable --verbose --delete"
+
+# Boolean flag local->remote synchronization.
+TO_REMOTE=false
+
+# Boolean flag remote->local synchronization.
+FROM_REMOTE=false
+
+# Boolean flat to enable dry run for rsync.
+DRY_RUN=false
+
+# Show an help message.
+show_help() {
+  cat <<-_EOF
+Usage:
+    $PROGRAM [--help|-h] [--dry-run] COMMAND
+
+$PROGRAM is a small utility to synchronize two directories using rsync. It uses
+some default options and get the path of two directories using a configuration
+file. 'rsync' and 'ssh' must be installed on the system.
+
+Commands:
+  to-remote
+      Synchronize local directory (LOCAL) to remote directory (REMOTE).
+  from-remote
+      Synchronize remote directory (REMOTE) to local directory (REMOTE).
+
+Options:
+  --help, -h    display this help and exit.
+  --dry-run     perform a trial run with no changes made
+
+Files:
+  $CONFIG_FILE
+      Configuration file with "LOCAL" and "REMOTE" environment variables set to
+      the local folder and remote directory. The file is mandatory.
+  
+  $EXCLUDE_FILE
+      File that contains exclude patterns to pass to rsync. See rsync for more
+      information. The file is optional.
+_EOF
+}
+
+# Parse options and command.
+for i in "$@"; do
+  case $i in
+    --help|-h)
+      show_help
+      exit 0
+      ;;
+    --dry-run)
+      DRY_RUN=true
+      shift
+      ;;
+    to-remote)
+      TO_REMOTE=true
+      shift
+      ;;
+    from-remote)
+      FROM_REMOTE=true
+      shift
+      ;;
+    *)
+      echo "Unknown option $i"
+      exit 1
+      ;;
+  esac
+done
+
+# Sanitize command.
+if [[ "$FROM_REMOTE" == "false" && "$TO_REMOTE" == "false" ]]; then
+  show_help
+  exit 1
+elif [[ "$FROM_REMOTE" == "true" && "$TO_REMOTE" == "true" ]]; then
+  echo "Only one command can be run."
+  exit 1
+fi
+
+# Get the local and remote folders. Hide stderr to the user.
+if ! source "$CONFIG_FILE" 2>/dev/null; then
+  echo "Failed to read config file '$CONFIG_FILE'"
+  exit 1
+fi
+
+# Set excluded files.
+if [[ -f "$EXCLUDE_FILE" ]]; then
+  RSYNC_OPTS="$RSYNC_OPTS --exclude-from=$EXCLUDE_FILE"
+fi
+
+
+# Set dry run option if asked.
+if [[ "$DRY_RUN" == "true" ]]; then
+  RSYNC_OPTS="$RSYNC_OPTS --dry-run"
+fi
+
+# Set src and dst directory for rsync.
+if [[ "$FROM_REMOTE" == "true" ]]; then
+  RSYNC_SRC="$REMOTE"
+  RSYNC_DST="$LOCAL"
+else
+  RSYNC_SRC="$LOCAL"
+  RSYNC_DST="$REMOTE"
+fi
+
+echo "rsync $RSYNC_OPTS $RSYNC_SRC $RSYNC_DST"
+# shellcheck disable=SC2086 # I want word splitting!
+rsync $RSYNC_OPTS $RSYNC_SRC $RSYNC_DST

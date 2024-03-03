@@ -212,6 +212,14 @@ alias university-work="firefox --profile ~/.cache/mozilla/firefox/university-wor
 # Start a new window with a terminal with the same PWD of the parent.
 alias terminal="xfce4-terminal"
 
+# Run nvvp (NVIDIA Visual Profiler) inside a custom toolbox container. nvvp is
+# deprecated, but my old NVIDIA GPU is not supported by NVIDIA Nsight, the new
+# visual profiler.
+#
+# I created a toolbox container called nvvp using these instructions:
+# https://jack23247.github.io/blog/linux/nvvp/
+alias nvvp="toolbox run --container nvvp /usr/local/cuda-12.3/bin/nvvp"
+
 # }}}
 
 # vim:foldmethod=marker

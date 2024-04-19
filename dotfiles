@@ -23,10 +23,6 @@ CURRENT_MODULE=""
 # shellcheck disable=SC2155
 readonly REPO_PATH="$(dirname "$(readlink -f "$0")")"
 
-# Full path of user's home dir.
-# shellcheck disable=SC2155
-readonly HOME_PATH="$(xdg-user-dir)"
-
 # Program's name.
 readonly PROGRAM="${0##*/}"
 
@@ -278,8 +274,8 @@ ed_module_focuswriter() {
 
   local dst_theme_path dst_conf_path src_path
 
-  dst_theme_path="$HOME_PATH/.local/share/GottCode/FocusWriter"
-  dst_conf_path="$HOME_PATH/.config/GottCode"
+  dst_theme_path="$HOME/.local/share/GottCode/FocusWriter"
+  dst_conf_path="$HOME/.config/GottCode"
   src_path="$REPO_PATH/focuswriter"
 
   mkdir -p "$dst_theme_path"
@@ -299,7 +295,7 @@ ed_module_youtube-dl() {
   local url dest_dir dest
 
   url="https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux"
-  dest_dir="$HOME_PATH/.local/bin"
+  dest_dir="$HOME/.local/bin"
   dest="$dest_dir/youtube-dl"
 
   mkdir -p "$dest_dir"
@@ -316,7 +312,7 @@ ed_module_gtk() {
 
 #MODULES["go"]="install Go 1.20 language tools"
 #ed_module_go() {
-#  local godir="$HOME_PATH/.local/opt/go"
+#  local godir="$HOME/.local/opt/go"
 #
 #  if [[ -a "$godir" ]]; then
 #    ed_wlog "directory '$godir' already exists!"
@@ -332,16 +328,16 @@ ed_module_gtk() {
 #  ed_download "$go_url" "$tmp" ||
 #    ed_elog "Failed to download '$go_url'" "$EXIT_FAILURE" "rm --force $tmp"
 #
-#  mkdir -p "$HOME_PATH/.local/opt"
+#  mkdir -p "$HOME/.local/opt"
 #
-#  tar --directory "$HOME_PATH/.local/opt" --extract --gzip --file "$tmp" ||
+#  tar --directory "$HOME/.local/opt" --extract --gzip --file "$tmp" ||
 #    ed_elog "Failed to extract '$tmp'! Check manually that file."
 #
 #  rm --force "$tmp"
 #
 #  # Link custom Go environment information.
-#  mkdir -p "$HOME_PATH/.config/go"
-#  ed_make_symlink "$REPO_PATH/go/env" "$HOME_PATH/.config/go/env"
+#  mkdir -p "$HOME/.config/go"
+#  ed_make_symlink "$REPO_PATH/go/env" "$HOME/.config/go/env"
 #
 #  ed_log "Go tools installed, make sure to update PATH with 'bash' module!"
 #}
@@ -355,7 +351,7 @@ ed_module_icon() {
 
 MODULES["bin"]="create symlinks for custom scripts on ~/.local/bin"
 ed_module_bin() {
-  local bin_path="$HOME_PATH/.local/bin"
+  local bin_path="$HOME/.local/bin"
 
   mkdir --parents "$bin_path"
 
@@ -366,7 +362,7 @@ ed_module_bin() {
 
 MODULES["git"]="install 'git' and link the configuration"
 ed_module_git() {
-  local dest_path="$HOME_PATH"
+  local dest_path="$HOME"
 
   ed_install "git"
 
@@ -409,7 +405,7 @@ ed_module_tlp() {
 
 MODULES["dotfiles"]="install itself to '~/.local/bin'"
 ed_module_dotfiles() {
-  ed_make_symlink "$REPO_PATH/$PROGRAM" "$HOME_PATH/.local/bin/$PROGRAM"
+  ed_make_symlink "$REPO_PATH/$PROGRAM" "$HOME/.local/bin/$PROGRAM"
 }
 
 MODULES["clean"]="remove various packages that I don't use"
@@ -427,7 +423,7 @@ ed_module_gpg() {
   ed_install "pinentry-gtk"
 
   for file in "$REPO_PATH"/gnupg/* ; do
-    ed_make_symlink "$file" "$HOME_PATH/.gnupg/${file##*/}"
+    ed_make_symlink "$file" "$HOME/.gnupg/${file##*/}"
   done
 }
 
@@ -438,11 +434,11 @@ ed_module_lightdm() {
                   sudo
 }
 
-MODULES["vim"]="prepare vim folder and link it to $HOME_PATH/.vim"
+MODULES["vim"]="prepare vim folder and link it to $HOME/.vim"
 ed_module_vim() {
   local plugins_path
 
-  ed_make_symlink "$REPO_PATH/vim" "$HOME_PATH/.vim"
+  ed_make_symlink "$REPO_PATH/vim" "$HOME/.vim"
 
   plugins_path="$REPO_PATH/vim/pack/plugins/start/"
 
@@ -463,7 +459,7 @@ MODULES["xfce4-terminal"]="link configuration of xfce4-terminal"
 ed_module_xfce4-terminal() {
   local dest_path src_path
 
-  dest_path="$HOME_PATH/.config/xfce4/terminal"
+  dest_path="$HOME/.config/xfce4/terminal"
   src_path="$REPO_PATH/xfce4/xfce4-terminal"
 
   #ed_make_symlink "$src_path/terminalrc" "$dest_path"
@@ -535,16 +531,16 @@ ed_module_thunar() {
     "THUNAR_ZOOM_LEVEL_150_PERCENT"
 
   # Install custom "Sent To" action for Thunar.
-  mkdir --parents "$HOME_PATH/.local/share/Thunar"
+  mkdir --parents "$HOME/.local/share/Thunar"
   ed_make_symlink "$REPO_PATH/xfce4/Thunar/sendto" \
-                  "$HOME_PATH/.local/share/Thunar/sendto"
+                  "$HOME/.local/share/Thunar/sendto"
 }
 
 MODULES["xfwm4"]="install xfwm4 theme"
 ed_module_xfwm4() {
   local dest_path
 
-  dest_path="$HOME_PATH/.local/share/themes"
+  dest_path="$HOME/.local/share/themes"
   mkdir --parents "$dest_path"
 
   ed_make_symlink "$REPO_PATH/xfwm4/thinble" "$dest_path/thinble"
@@ -560,7 +556,7 @@ ed_module_xfwm4() {
 MODULES["bash"]="link Bash configuration"
 ed_module_bash() {
   for file in "$REPO_PATH"/bash/* ; do
-    ed_make_symlink "$file" "$HOME_PATH/.${file##*/}"
+    ed_make_symlink "$file" "$HOME/.${file##*/}"
   done
 }
 
@@ -568,7 +564,7 @@ MODULES["font"]="download and install Hack font (but don't activate it)"
 ed_module_font() {
   local xz_file
   local tar_file
-  local dest_path="$HOME_PATH/.local/share/fonts"
+  local dest_path="$HOME/.local/share/fonts"
   local hack_version="v3.003"
 
   xz_file="$(mktemp --suffix=.tar.xz)"
@@ -605,7 +601,7 @@ MODULES["firefox"]="install firefox and custom user.js to 'emanuele' profile"
 ed_module_firefox() {
   ed_install "firefox"
 
-  local firefox_path="$HOME_PATH/.mozilla/firefox"
+  local firefox_path="$HOME/.mozilla/firefox"
 
   # Find profile path.
   [[ -d "$firefox_path" ]] ||

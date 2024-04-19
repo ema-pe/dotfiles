@@ -5,4 +5,19 @@
 # Copyright (c) 2024 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
 # rights reserved. This file is licensed under the MIT license.
 
-complete -W '-h --help --dry-run to-remote from-remote' sync-repo
+_sync-repo() {
+  local current commands
+  COMPREPLY=()
+  current="${COMP_WORDS[$COMP_CWORD]}"
+  commands="-h --help --dry-run --config to-remote from-remote"
+
+  if [[ "${COMP_WORDS[-2]}" == "--config" ]]; then
+      mapfile -t COMPREPLY < <(compgen -f -- "$current")
+  else
+    mapfile -t COMPREPLY < <(compgen -W "$commands" -- "$current")
+  fi
+
+  return 0
+}
+
+complete -F _sync-repo sync-repo

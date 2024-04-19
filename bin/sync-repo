@@ -10,7 +10,8 @@
 readonly PROGRAM="sync-repo"
 
 # Configuration file with 'LOCAL' and 'REMOTE' environment variables.
-readonly CONFIG_FILE="./$PROGRAM-config"
+# Can be changed via command line arguments.
+CONFIG_FILE="./$PROGRAM-config"
 
 # Optional exclude file with exclude patterns for rsync.
 readonly EXCLUDE_FILE="./$PROGRAM-exclude"
@@ -35,7 +36,7 @@ Usage:
     $PROGRAM [--help|-h] [--dry-run] COMMAND
 
 $PROGRAM is a small utility to synchronize two directories using rsync. It uses
-some default options and get the path of two directories using a configuration
+some default options and gets the path of two directories using a configuration
 file. 'rsync' and 'ssh' must be installed on the system.
 
 Commands:
@@ -45,44 +46,64 @@ Commands:
       Synchronize remote directory (REMOTE) to local directory (REMOTE).
 
 Options:
-  --help, -h    display this help and exit.
-  --dry-run     perform a trial run with no changes made
+  --help, -h       display this help and exit.
+  --dry-run        perform a trial run with no changes made.
+  --config <file>  use this configuration file instead of $CONFIG_FILE.
 
 Files:
   $CONFIG_FILE
       Configuration file with "LOCAL" and "REMOTE" environment variables set to
       the local folder and remote directory. The file is mandatory.
-  
+
+      An example of configuration file is:
+
+          LOCAL="./local-directory/"
+          REMOTE="username@remote-ip:remote-directory/"
+
   $EXCLUDE_FILE
       File that contains exclude patterns to pass to rsync. See rsync for more
       information. The file is optional.
+
+      An example of exclude file is:
+
+          .git/
+          .env/
+
+      This ignores ".git/" and ".env/" directories on both locan and remote
+      directories.
 _EOF
 }
 
 # Parse options and command.
-for i in "$@"; do
-  case $i in
+argument="$1"
+while [[ -n "$argument" ]]; do
+  case $argument in
     --help|-h)
       show_help
       exit 0
       ;;
+    --config) # --config <config-file>
+      shift
+      CONFIG_FILE="$1"
+      ;;
     --dry-run)
       DRY_RUN=true
-      shift
       ;;
     to-remote)
       TO_REMOTE=true
-      shift
       ;;
     from-remote)
       FROM_REMOTE=true
-      shift
       ;;
     *)
-      echo "Unknown option $i"
+      echo "Unknown option $argument"
       exit 1
       ;;
   esac
+
+  # Next argument in command line.
+  shift
+  argument="$1"
 done
 
 # Sanitize command.

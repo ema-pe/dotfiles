@@ -9,7 +9,7 @@ _sync-repo() {
   local current commands
   COMPREPLY=()
   current="${COMP_WORDS[$COMP_CWORD]}"
-  commands="-h --help --dry-run --config to-remote from-remote"
+  commands="-h --help --dry-run --config --port to-remote from-remote"
 
   if [[ "${COMP_WORDS[-2]}" == "--config" ]]; then
       mapfile -t COMPREPLY < <(compgen -f -- "$current")

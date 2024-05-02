@@ -29,6 +29,9 @@ FROM_REMOTE=false
 # Boolean flat to enable dry run for rsync.
 DRY_RUN=false
 
+# SSH port to make connection (used by rsync).
+SSH_PORT=22
+
 # Show an help message.
 show_help() {
   cat <<-_EOF
@@ -48,6 +51,7 @@ Commands:
 Options:
   --help, -h       display this help and exit.
   --dry-run        perform a trial run with no changes made.
+  --port <port>    port to use for ssh connection, default 22.
   --config <file>  use this configuration file instead of $CONFIG_FILE.
 
 Files:
@@ -88,6 +92,10 @@ while [[ -n "$argument" ]]; do
       ;;
     --dry-run)
       DRY_RUN=true
+      ;;
+    --port)
+      shift
+      SSH_PORT=22
       ;;
     to-remote)
       TO_REMOTE=true
@@ -141,6 +149,6 @@ else
   RSYNC_DST="$REMOTE"
 fi
 
-echo "rsync $RSYNC_OPTS $RSYNC_SRC $RSYNC_DST"
+echo "rsync -e 'ssh -p $SSH_PORT' $RSYNC_OPTS $RSYNC_SRC $RSYNC_DST"
 # shellcheck disable=SC2086 # I want word splitting!
-rsync $RSYNC_OPTS $RSYNC_SRC $RSYNC_DST
+rsync $RSYNC_OPTS -e "ssh -p $SSH_PORT" $RSYNC_SRC $RSYNC_DST

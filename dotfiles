@@ -310,37 +310,33 @@ ed_module_gtk() {
   ed_xfconf "xsettings" "/Net/ThemeName" "Arc-Dark"
 }
 
-#MODULES["go"]="install Go 1.20 language tools"
-#ed_module_go() {
-#  local godir="$HOME/.local/opt/go"
-#
-#  if [[ -a "$godir" ]]; then
-#    ed_wlog "directory '$godir' already exists!"
-#    return
-#  fi
-#
-#  local tmp gobin="go1.16.linux-amd64.tar.gz"
-#  local go_url="https://golang.org/dl/$gobin"
-#
-#  tmp="$(mktemp)"
-#
-#  # The version and arch are fixed in the string, it need to be updated manually.
-#  ed_download "$go_url" "$tmp" ||
-#    ed_elog "Failed to download '$go_url'" "$EXIT_FAILURE" "rm --force $tmp"
-#
-#  mkdir -p "$HOME/.local/opt"
-#
-#  tar --directory "$HOME/.local/opt" --extract --gzip --file "$tmp" ||
-#    ed_elog "Failed to extract '$tmp'! Check manually that file."
-#
-#  rm --force "$tmp"
-#
-#  # Link custom Go environment information.
-#  mkdir -p "$HOME/.config/go"
-#  ed_make_symlink "$REPO_PATH/go/env" "$HOME/.config/go/env"
-#
-#  ed_log "Go tools installed, make sure to update PATH with 'bash' module!"
-#}
+MODULES["go"]="install Go 1.22.3 language tools"
+ed_module_go() {
+  local godir="$HOME/.local/opt/go"
+
+  if [[ -a "$godir" ]]; then
+    ed_wlog "directory '$godir' already exists!"
+    return
+  fi
+
+  # Version and architecture are fixed in the URL.
+  local tmp gobin="go1.22.3.linux-amd64.tar.gz"
+  local go_url="https://golang.org/dl/$gobin"
+
+  tmp="$(mktemp)"
+
+  ed_download "$go_url" "$tmp" ||
+    ed_elog "Failed to download '$go_url'" "$EXIT_FAILURE" "rm --force $tmp"
+
+  mkdir -p "$HOME/.local/opt"
+
+  tar --directory "$HOME/.local/opt" --extract --gzip --file "$tmp" ||
+    ed_elog "Failed to extract '$tmp'!."
+
+  rm --force "$tmp"
+
+  ed_log "Go tools installed, make sure to update PATH with 'bash' module!"
+}
 
 MODULES["icon"]="install 'papirus-icon-theme' package and enable it"
 ed_module_icon() {

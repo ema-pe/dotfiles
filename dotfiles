@@ -264,7 +264,7 @@ ed_module_packages() {
   fi
 
   ed_install "pass" "thunderbird" "vlc" "ffmpeg" "telegram-desktop" "gxpsee" \
-    "ImageMagick" "hledger" "syncthing" "ShellCheck" "libheif-tools" \
+    "ImageMagick" "syncthing" "ShellCheck" "libheif-tools" \
     "librsvg2-tools"
 }
 
@@ -680,6 +680,11 @@ ed_module_zotero() {
   # Add Zotero executable to $PATH, so I can run it from command line.
   ed_make_symlink "$zotero_path/zotero" \
                   "$HOME/.local/bin/zotero"
+}
+
+MODULES["zathura"]="Install Zathura (PDF viewer)"
+ed_module_zathura() {
+  ed_install zathura zathura-bash-completion zathura-cb zathura-pdf-mupdf
 }
 
 # }}}

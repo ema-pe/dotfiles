@@ -220,6 +220,8 @@ alias terminal="xfce4-terminal"
 # https://jack23247.github.io/blog/linux/nvvp/
 alias nvvp="toolbox run --container nvvp /usr/local/cuda-12.3/bin/nvvp"
 
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+
 # }}}
 
 # vim:foldmethod=marker

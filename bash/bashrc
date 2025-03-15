@@ -143,6 +143,20 @@ scanned() {
   fi
 }
 
+# Convert a KML track file to GPX track.
+kml2gpx() {
+  local input output
+
+  input="$1"
+  output="$2"
+
+  if [[ "$(command -v gpsbabel)" ]] ; then
+    gpsbabel -i kml -f "$1" -o gpx -F "$2"
+  else
+    echo "This script requires gpsbabel" >&2
+  fi
+}
+
 # }}}
 
 # Bash history {{{

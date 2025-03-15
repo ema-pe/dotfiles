@@ -416,7 +416,7 @@ ed_module_clean() {
 
 MODULES["gpg"]="install GnuPG configuration"
 ed_module_gpg() {
-  ed_install "pinentry-gtk"
+  ed_install "pinentry-gnome3"
 
   for file in "$REPO_PATH"/gnupg/* ; do
     ed_make_symlink "$file" "$HOME/.gnupg/${file##*/}"

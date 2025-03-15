@@ -226,6 +226,9 @@ alias university-work="firefox --profile ~/.cache/mozilla/firefox/university-wor
 # Start a new window with a terminal with the same PWD of the parent.
 alias terminal="xfce4-terminal"
 
+# Start NeoVIM instead of VIM.
+alias vim="nvim"
+
 # Run nvvp (NVIDIA Visual Profiler) inside a custom toolbox container. nvvp is
 # deprecated, but my old NVIDIA GPU is not supported by NVIDIA Nsight, the new
 # visual profiler.

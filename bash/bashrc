@@ -28,7 +28,7 @@ export PS1="[\u@\h \[\e[36m\]\W\[\e[m\]]\\$ "
 export SSH_AUTH_SOCK="/run/user/$EUID/gnupg/S.gpg-agent.ssh"
 
 # Default editor.
-export EDITOR=vim
+export EDITOR=nvim
 
 export ANDROID_HOME=/home/emanuele/.local/opt/android/
 export ANDROID_SDK_ROOT=/home/emanuele/.local/opt/android/
@@ -94,6 +94,16 @@ kml2gpx() {
   else
     echo "This script requires gpsbabel" >&2
   fi
+}
+
+ssh-jump() {
+  local middlehost destination
+
+  middlehost="$1"
+  destination="$2"
+
+  echo "ssh -J emanuele@$middlehost $destination"
+  ssh -J emanuele@"$middlehost" "$destination"
 }
 
 # }}}

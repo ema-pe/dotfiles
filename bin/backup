@@ -2,8 +2,9 @@
 # shellcheck disable=all
 #
 # This script backups some directories from my laptop to two external HDDs.
+# DO NOT USE THIS SCRIPT, I'M WORKING ON IT, YOU MAY LOOSE DATA!
 #
-# Copyright (C) 2018-2021 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
+# Copyright (C) 2018-2025 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
 # rights reserved. This file is licensed under the MIT license.
 
 #readonly HDD1="/run/media/$USER/6bada27e-026d-424c-b3f7-ad323ace4574"
@@ -66,3 +67,6 @@ backup_folder() {
 
 backup_folder "$HOME/Documents/"       "$hdd/documents/current/"
 backup_folder "$HOME/Pictures/2023/"    "$hdd/immagini/foto/2023/"
+
+# Full copy between the two didks:
+# rsync --human-readable --human-readable --archive --verbose --delete --exclude='lost+found' --exclude='.Trash-1000' /run/media/emanuele/bravo/ /run/media/emanuele/6bada27e-026d-424c-b3f7-ad323ace4574/

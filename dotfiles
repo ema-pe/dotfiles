@@ -370,33 +370,23 @@ ed_module_git() {
   done
 }
 
-MODULES["tlp"]="install 'tlp', link the configuration and enable it"
+MODULES["tlp"]="install 'tlp', copy the config, enable and start it"
 ed_module_tlp() {
   local src dst
 
   ed_install "tlp"
 
-  # Create symlink.
+  # Copy the file to avoid SELinux issues (when tlp read that file).
   src="$REPO_PATH/tlp/tlp.conf"
-  dst="/etc/tlp.d/00-emanuele.conf"
+  dst="/etc/tlp.d/01-emanuele.conf"
 
-  ed_make_symlink "$src" "$dst" "sudo"
+  ed_wlog "root requested to copy tlp configuration!"
+  sudo cp "$src" "$dst"
 
-  # Before enabling tlp, you need to fix a SELinux policy.
-  local policy="$REPO_PATH/tlp/fix-tlp"
-  checkmodule --mls -m -o "$policy.mod" "$policy.te"
-  semodule_package -o "$policy.pp" -m "$policy.mod"
-
-  ed_wlog "root requested to install '$policy.te' policy!"
-  sudo semodule --install "$policy.pp"
-  ed_log "policy installed successfuly!"
-
-  rm --force "$policy.pp" "$policy.mod"
-
-  # Enable tlp
-  ed_wlog "root requested to start tlp!"
-  sudo tlp start &>>/dev/null || ed_elog "tlp: Failed to start tlp!"
-  ed_log "tlp started successfuly!"
+  # Enable and start tlp
+  sudo systemctl enable tlp
+  sudo systemctl start tlp
+  ed_log "tlp installed and started successfuly!"
 }
 
 MODULES["dotfiles"]="install itself to '~/.local/bin'"

@@ -522,23 +522,6 @@ ed_module_thunar() {
                   "$HOME/.local/share/Thunar/sendto"
 }
 
-MODULES["xfwm4"]="install xfwm4 theme"
-ed_module_xfwm4() {
-  local dest_path
-
-  dest_path="$HOME/.local/share/themes"
-  mkdir --parents "$dest_path"
-
-  ed_make_symlink "$REPO_PATH/xfwm4/thinble" "$dest_path/thinble"
-
-  ed_xfconf "xfwm4" "/general/theme" "thinble"
-
-  # Make title font very large, so it is not displayed on the upper bar.
-  ed_xfconf "xfwm4" "/general/title_font" "Sans Bold 100"
-
-  # TODO: add Xfwm keyboard shortcuts.
-}
-
 MODULES["bash"]="link Bash configuration"
 ed_module_bash() {
   for file in "$REPO_PATH"/bash/* ; do

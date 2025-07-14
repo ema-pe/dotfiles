@@ -118,6 +118,20 @@ ssh-jump() {
   ssh -J emanuele@"$middlehost" "$destination"
 }
 
+# Automatically restart an SSH connection if it dies.
+autossh() {
+  while true
+  do
+    echo "Executing: 'ssh $1'"
+    ssh $1
+    if [ "$?" -ne 255 ]; then
+      break
+    fi
+    clear
+    sleep 5
+  done
+}
+
 # }}}
 
 # Bash history {{{

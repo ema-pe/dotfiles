@@ -122,8 +122,8 @@ ssh-jump() {
 autossh() {
   while true
   do
-    echo "Executing: 'ssh $1'"
-    ssh $1
+    echo "Executing: 'ssh $*'"
+    ssh "$@"
     if [ "$?" -ne 255 ]; then
       break
     fi

@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 #
 # This script open gpxsee with GPX files of the current directory that are close
-# to a given location. Current supported location are "rome" and "milan" and the
-# filter's radius is 150 chilometers.
+# to a given location. Current supported location are "rome", "milan" and
+# "salerno" and the filter's radius is 150 chilometers.
 #
 # See GPXSee website for more info: https://www.gpxsee.org/
 #
-# Copyright (c) 2022 Emanuele Petriglia <inbox@emanuelepetriglia.com>
+# Copyright (c) 2022-2025 Emanuele Petriglia <inbox@emanuelepetriglia.com>
 # All rights reserved. This file is licensed under the MIT license.
 
 import sys
@@ -37,19 +37,18 @@ def distance(p1, p2):
 
     return d
 
+locations = {"rome": (41.89074, 12.49247),
+             "milan": (45.46464, 9.19205),
+             "salerno": (40.67545, 14.79328)}
+
 def main(location):
-    home = 0, 0
-    if location == "rome":
-        home = 41.89074, 12.49247
-    elif location == "milan":
-        home = 45.46464, 9.19205
-    else:
-        print(f'Error: "{location}" must be "rome" or "milan"')
-        return
+    if location not in locations:
+        print(f"Unrecognized location {location!r}, must be one of {list(locations.keys())}")
+        sys.exit(1)
 
     # Regex to extract the latitude and longitude of the first track point (eg.
     # 'lat="41.7518572" lon="12.8808482"').
-    regex = re.compile('lat="(?P<lat>([\d.])+)" lon="(?P<lon>([\d.])+)"')
+    regex = re.compile(r'lat="(?P<lat>([\d.])+)" lon="(?P<lon>([\d.])+)"')
 
     # It scans all GPX files and save those that are close to the given
     # location.
@@ -68,7 +67,7 @@ def main(location):
             lat = float(res.group('lat'))
             lon = float(res.group('lon'))
 
-            if distance(home, (lat, lon)) < 150000:
+            if distance(locations[location], (lat, lon)) < 150000:
                 saved.append(path)
 
     if len(saved) == 0:
@@ -81,6 +80,12 @@ def main(location):
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print('usage: open-gpxsee LOCATION')
-        print('LOCATION must be "rome" or "milan"')
+        print(f'LOCATION must be one of {list(locations.keys())}')
+        sys.exit(1)
+
+    if sys.argv[1] == "--help" or sys.argv[1] == "-h":
+        print('usage: open-gpxsee LOCATION')
+        print(f'LOCATION must be one of {list(locations.keys())}')
+        sys.exit(0)
 
     main(sys.argv[1])

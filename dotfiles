@@ -492,7 +492,7 @@ ed_module_xfce4-keyboard-shortcuts() {
   ed_xfconf "$channel" "$prefix/<Primary>Print" "xfce4-screenshooter --region"
   ed_xfconf "$channel" "$prefix/<Alt>Print" "xfce4-screenshooter --region"
   ed_xfconf "$channel" "$prefix/Print" "xfce4-screenshooter --fullscreen"
-  ed_xfconf "$channel" "$prefix/<Super>s" "telegram-desktop"
+  ed_xfconf "$channel" "$prefix/<Super>s" "Telegram"
   ed_xfconf "$channel" "$prefix/<Super>f" "thunar"
   ed_xfconf "$channel" "$prefix/<Super>x" "mousepad"
   ed_xfconf "$channel" "$prefix/<Super>q" "firefox-tmp"

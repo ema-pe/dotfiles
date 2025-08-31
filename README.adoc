@@ -7,6 +7,10 @@ Emanuele Petriglia
 This repository contains some dotfiles, scripts and configurations that I use
 every day.
 
+The git repository is available online on both link:https://gitlab.com/ema-pe/dotfiles[GitLab] and link:https://github.com/ema-pe/dotfiles[GitHub]. However, GitHub is a **read-only mirror** of GitLab.
+
+WARNING: As of August 2025, the dotfiles are partially deprecated. I have started rewriting them, as well as the installation script.
+
 == Requirements
 
 These dotfiles can be used on any operating system, because they are just

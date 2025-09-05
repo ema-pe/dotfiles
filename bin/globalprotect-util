@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+#
+# This script starts (or stop) GlobalProtect VPN processes.
+#
+# Usage: ./globalprotect-util [start|stop]
+#
+# Default is "start" if no argument is given.
+#
+#
+# Copyright (C) 2025 Emanuele Petriglia <inbox@emanuelepetriglia.com>. All
+# rights reserved. This file is licensed under the MIT license.
+
+ACTION="${1:-start}"
+
+GP_DIR="/opt/paloaltonetworks/globalprotect"
+
+show_help() {
+    echo "Usage: $0 [start|stop|--help]"
+    echo ""
+    echo "  start     Start GlobalProtect services and UI (default)."
+    echo "  stop      Stop GlobalProtect services and kill UI/client processes."
+    echo "  --help    Show this help message."
+}
+
+start_globalprotect() {
+    echo "Starting GlobalProtect daemon"
+    sudo systemctl start gpd
+
+    # Wait to be sure the daemon has started.
+    sleep 3
+
+    cd "$GP_DIR" || { echo "Failed to cd to $GP_DIR"; exit 1; }
+
+    echo "Starting GlobalProtect client"
+    ./PanMSInit.sh
+
+    echo "Starting GlobalProtect UI"
+    ./globalprotect launch-ui
+}
+
+stop_globalprotect() {
+    echo "Stopping GlobalProtect daemon"
+    sudo systemctl stop gpd
+
+    echo "Killing client and UI processes"
+    pkill -f PanGPUI
+    pkill -f PanGPA
+}
+
+case "$ACTION" in
+    start)
+        start_globalprotect
+        ;;
+    stop)
+        stop_globalprotect
+        ;;
+    --help|-h)
+        show_help
+        ;;
+    *)
+        echo "Usage: $0 [start|stop]"
+        echo "Run $0 --help for more information."
+        echo "Invalid argument: $ACTION"
+        exit 1
+        ;;
+esac

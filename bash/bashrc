@@ -66,18 +66,6 @@ heic2jpg() {
   done
 }
 
-# I keep the GlobalProtect VPN service disabled by default, so I need to
-# activate it when I need.
-startGlobalProtect() {
-    # This is the daemon server.
-    sudo systemctl start gpd
-
-    sleep 3
-
-    # This is the client.
-    /opt/paloaltonetworks/globalprotect/PanMSInit.sh
-}
-
 # scanned makes a PDF file look scanned using ImageMagick.
 scanned() {
   local input output

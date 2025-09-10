@@ -27,12 +27,14 @@ start_globalprotect() {
     sudo systemctl start gpd
 
     # Wait to be sure the daemon has started.
-    sleep 3
+    sleep 5
 
     cd "$GP_DIR" || { echo "Failed to cd to $GP_DIR"; exit 1; }
 
     echo "Starting GlobalProtect client"
     ./PanMSInit.sh
+
+    sleep 5
 
     echo "Starting GlobalProtect UI"
     ./globalprotect launch-ui

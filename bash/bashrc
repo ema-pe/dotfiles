@@ -135,6 +135,12 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # Aliases {{{
 
+# rsync alias for a rapid sync.
+alias rsync-util='rsync --archive --verbose --compress --delete'
+
+# rsync alias for sync experiments results from my PhD experiments.
+alias rsync-results="rsync --archive --verbose --delete --max-size=2M --exclude '*checkpoint*' --exclude '*.csv*'"
+
 # It stops Bash to record commands in the current session.
 alias forget="unset HISTFILE"
 

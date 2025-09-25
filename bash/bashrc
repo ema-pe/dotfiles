@@ -124,6 +124,14 @@ autossh() {
 
 # Bash history {{{
 
+# Increase number of commands stored in memory and on disk.
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+
+# Append commands on disk instead of overwriting. This is useful with multiple
+# concurrent sessions.
+shopt -s histappend
+
 # More human-readable format.
 export HISTTIMEFORMAT="[%F %T] "
 

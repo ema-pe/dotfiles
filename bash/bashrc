@@ -120,6 +120,22 @@ autossh() {
   done
 }
 
+# Intercept the netbird program to start/stop the systemd service if needed.
+netbird-wrap() {
+  if [[ "$1" == "up" ]]; then
+    echo "-- Running: sudo systemctl start netbird"
+    sudo systemctl start netbird
+    echo "-- Running: netbird up --management-url https://netbird.unimib.it"
+    netbird up --management-url https://netbird.unimib.it
+  elif [[ "$1" == "down" ]]; then
+    echo "-- Stopping systemd service 'netbird'"
+    sudo systemctl stop netbird
+    netbird down
+  else
+    netbird "$@"
+  fi
+}
+
 # }}}
 
 # Bash history {{{
@@ -142,6 +158,9 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # }}}
 
 # Aliases {{{
+
+# Intercept netbird calls.
+alias netbird='netbird-wrap'
 
 # rsync alias for a rapid sync.
 alias rsync-util='rsync --archive --verbose --compress --delete --human-readable'

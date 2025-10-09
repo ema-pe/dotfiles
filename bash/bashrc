@@ -129,8 +129,8 @@ netbird-wrap() {
     netbird up --management-url https://netbird.unimib.it
   elif [[ "$1" == "down" ]]; then
     echo "-- Stopping systemd service 'netbird'"
-    sudo systemctl stop netbird
     netbird down
+    sudo systemctl stop netbird
   else
     netbird "$@"
   fi

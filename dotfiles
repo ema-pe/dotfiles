@@ -2,7 +2,7 @@
 #
 # This script manages my dotfiles. Run `dotfiles help' to get more informations.
 #
-# Copyright (c) 2018-2019 Emanuele Petriglia <inbox@emanuelepetriglia.com>
+# Copyright (c) 2018-2025 Emanuele Petriglia <inbox@emanuelepetriglia.com>
 # All rights reserved. This file is licensed under the MIT license.
 
 # This file id divided into several sections:
@@ -31,7 +31,7 @@ readonly COMMAND="$1"
 
 # Target of this script.
 readonly TARGET_DISTRIBUTION="Fedora Linux"
-readonly TARGET_VERSION=37
+readonly TARGET_VERSION=42
 
 # Associative array of available modules (module name -> module description).
 declare -A MODULES

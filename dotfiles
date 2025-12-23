@@ -265,7 +265,7 @@ ed_module_packages() {
 
   ed_install "pass" "thunderbird" "vlc" "ffmpeg" "telegram-desktop" "gxpsee" \
     "ImageMagick" "syncthing" "ShellCheck" "libheif-tools" \
-    "librsvg2-tools"
+    "librsvg2-tools" "tmux" "neovim"
 }
 
 MODULES["focuswriter"]="install and configure FocusWriter"
@@ -420,20 +420,15 @@ ed_module_lightdm() {
                   sudo
 }
 
-MODULES["vim"]="prepare vim folder and link it to $HOME/.vim"
-ed_module_vim() {
-  local plugins_path
+MODULES["neovim"]="install neovim configuration"
+ed_module_neovim() {
+  local src_path dst_path
+  src_path="$REPO_PATH/nvim"
+  dst_path="$HOME/.config/"
 
-  ed_make_symlink "$REPO_PATH/vim" "$HOME/.vim"
+  mkdir --parents "$dst_path"
 
-  plugins_path="$REPO_PATH/vim/pack/plugins/start/"
-
-  # Download all plugins.
-  git -C "$REPO_PATH" submodule update --init "$plugins_path/papercolor-theme"
-  git -C "$REPO_PATH" submodule update --init "$plugins_path/vim-syntax-extra"
-  git -C "$REPO_PATH" submodule update --init "$plugins_path/python-syntax"
-  git -C "$REPO_PATH" submodule update --init "$plugins_path/goyo.vim"
-  git -C "$REPO_PATH" submodule update --init "$plugins_path/vim-pencil"
+  ed_make_symlink "$src_path" "$dst_path"
 }
 
 MODULES["tmux"]="install tmux configuration"

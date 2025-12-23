@@ -27,7 +27,6 @@
   - [python](#python)
   - [thunar](#thunar)
   - [tlp](#tlp)
-  - [vim](#vim)
   - [xfce4](#xfce4)
   - [xfce4-keyboard-shortcuts](#xfce4-keyboard-shortcuts)
   - [xfce4-terminal](#xfce4-terminal)
@@ -294,25 +293,6 @@ The basic commands available are:
 * Manage Wi-Fi and Bluetooth: `wifi [on/off]` and `bluetooth [on/off]`.
 
 This module will install tlp, copy my configuration, start tlp and enable the unit file (for systemd).
-
----
-
-### vim
-
-I use VIM as my text editor for programming and writing. I found it very productive and efficient. 
-
-My [vimrc](vim/vimrc) file is well documented, I also use some plugins: 
-
-* [**goyo. vim**](https://github.com/junegunn/goyo.vim): for writing without distractions. 
-* [**papercolor-theme**](https://github.com/NLKNguyen/papercolor-theme): a VIM color scheme inspired by Google's Material Design.
-* [**python-syntax**](https://github.com/hdima/python-syntax): better Python syntax highlighting.
-* [**vim-pencil**](https://github.com/reedes/vim-pencil): better movements for writing prose.
-* [**vim-syntax-extra**](https://github.com/justinmk/vim-syntax-extra): better C syntax highlighting. 
-* [**SimplylFold**](https://github.com/tmhedberg/SimpylFold): better Python folding. 
-* [**redact_pass**](https://git.zx2c4.com/password-store/tree/contrib/vim): improve security when editing a password file with VIM.  It requires `pass` package. 
-* [**vim-asciidoctor**](https://github.com/habamax/vim-asciidoctor): better Asciidoc syntax highlighting and also support for folding.
-
-Both **goyo.vim** and **vim-pencil** are not automatically started with VIM, instead you need to run `vim -c Writing`.
 
 ---
 

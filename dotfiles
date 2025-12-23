@@ -436,6 +436,19 @@ ed_module_vim() {
   git -C "$REPO_PATH" submodule update --init "$plugins_path/vim-pencil"
 }
 
+MODULES["tmux"]="install tmux configuration"
+ed_module_tmux() {
+  local src_path dst_path
+  src_path="$REPO_PATH/tmux"
+  dst_path="$HOME/.config/tmux"
+
+  mkdir --parents "$dst_path"
+
+  for file in "$src_path"/* ; do
+    ed_make_symlink "$file" "$dst_path/${file##*/}"
+  done
+}
+
 MODULES["python"]="install Python offline documentation"
 ed_module_python() {
   ed_install "python3-docs"

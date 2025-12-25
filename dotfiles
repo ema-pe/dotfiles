@@ -310,7 +310,7 @@ ed_module_gtk() {
   ed_xfconf "xsettings" "/Net/ThemeName" "Arc-Dark"
 }
 
-MODULES["go"]="install Go 1.25.1 language tools"
+MODULES["go"]="install Go 1.25.5 language tools"
 ed_module_go() {
   local godir="$HOME/.local/opt/go"
 
@@ -320,7 +320,7 @@ ed_module_go() {
   fi
 
   # Version and architecture are fixed in the URL.
-  local tmp gobin="go1.25.1.linux-amd64.tar.gz"
+  local tmp gobin="go1.25.5.linux-amd64.tar.gz"
   local go_url="https://golang.org/dl/$gobin"
 
   tmp="$(mktemp)"

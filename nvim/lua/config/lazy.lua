@@ -30,6 +30,15 @@ require("lazy").setup({
     -- Add modus colorscheme plugin.
     -- See: https://github.com/miikanissi/modus-themes.nvim
     {"miikanissi/modus-themes.nvim", priority = 1000, opts = {variant="tinted"}},
+
+    -- wrapping.nvim: handle soft/hard wrap mainly on text (not code) files.
+    -- See: https://github.com/andrewferrier/wrapping.nvim
+    {
+        "andrewferrier/wrapping.nvim",
+        config = function()
+            require("wrapping").setup()
+        end
+    },
   },
 
   -- Set colorscheme.

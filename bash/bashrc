@@ -136,6 +136,15 @@ netbird-wrap() {
   fi
 }
 
+# Fixes SSH ENVs in tmux session. Type "fixssh" when reattaching to a tmux
+# session.
+#
+# Source: https://blog.feld.me/posts/2025/12/tmux-ssh-agent-forwarding/
+fixssh() {
+    eval $(tmux show-env \
+        | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
+}
+
 # }}}
 
 # Bash history {{{

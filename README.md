@@ -134,6 +134,12 @@ This module installs the `dotfiles` script to `~/.local/bin` folder. It is suppo
 
 ---
 
+### draw.io
+
+This module installs [draw.io](https://www.drawio.com/) as AppImage to `~/.local/bin`. It is supposed that this path is added previously to `PATH` environment variable.
+
+---
+
 ### firefox
 
 I use Mozilla Firefox as my main browser. I like it because is privacy focused, fast and work really well in Linux.  It is a big and complex software, it is not easy to customize it. 

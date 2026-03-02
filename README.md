@@ -41,7 +41,9 @@ This repository contains some dotfiles, scripts and configurations that I use ev
 
 The git repository is available online on both [GitLab](https://gitlab.com/ema-pe/dotfiles) and [GitHub](https://github.com/ema-pe/dotfiles). However, GitHub is a **read-only mirror** of GitLab. 
 
-> **Warning:** As of August 2025, the dotfiles are partially deprecated. I have started rewriting them, as well as the installation script. 
+> [!important]
+> As of August 2025, the dotfiles are partially deprecated. I have started rewriting them, as well as the installation script. See [issue 31](https://gitlab.com/ema-pe/dotfiles/-/issues/31) for more information.
+thing important you should know.
 
 ## Requirements
 

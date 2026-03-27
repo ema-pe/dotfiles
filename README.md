@@ -97,6 +97,8 @@ If there are new commits, you also need to commit this update.
 
 These modules simply link my bash configuration, that consists of a `bashrc` and `bash_profile` file. It contains essential environment variables, aliases and small scripts. 
 
+There is also a custom `.inputrc` file for configuring GNU Readline.
+
 It also provides some autocompletion scripts for `dotfiles` script and other custom scripts.
 
 ---

@@ -1,17 +1,16 @@
 # ema-pe's GNU Readline configuration.
+#
+# Reminder: this file is automatically read by the GNU readline library. Bash
+# uses this library.
 
-# Use vim-like keybindings.
-set editing-mode vi
-set keymap vi
+# Explicitly set Emacs-style keybindings. For many years I used Vim-style
+# bindings, but I've since switched back to the default. I still use Neovim as
+# my default text editor :)
+set editing-mode emacs
+set keymap emacs
 
-# Enable different mode feedback for vim keymap.
-set show-mode-in-prompt on
-
-# Blinking block cursor on inserting.
-set vi-ins-mode-string \1\e[1 q\2
-
-# Blinking underline on command.
-set vi-cmd-mode-string \1\e[3 q\2
-
-# Display possible completions using  colors to indicate their file types.
+# Show colors to indicate file type for completions. By default is off.
 set colored-stats on
+
+# Ignore case on completion or during searching.
+set completion-ignore-case on

@@ -2,7 +2,7 @@
 --
 -- My own Neovim configuration.
 --
--- Copyright (c) 2024 Emanuele Petriglia (ema-pe) <inbox@emanuelepetriglia.com>.
+-- Copyright (c) 2026 Emanuele Petriglia (ema-pe) <inbox@emanuelepetriglia.com>.
 -- All right reserved. This script is licensed under the MIT license.
 
 -- Show line numbers.
@@ -75,16 +75,50 @@ vim.opt.colorcolumn = "+1"
 -- Tab and spaces settings {{{
 
 -- The default values are 8 spaces for a tab. But by default I prefer 4 spaces.
-vim.opt.tabstop = 4 -- Set 4 spaces for a tab when is read.
+vim.opt.tabstop = 4 -- Show 4 spaces for each tab.
 vim.opt.shiftwidth = 4 -- Set 4 spaces when inserting a tab.
 vim.opt.expandtab = true -- Insert spaces instead of tab.
 
 -- Insert a tab with 'Shift+Tab'.
 vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
--- TODO
+-- Show tabs with the "›" character. Also shows the trailing spaces.
+vim.opt.list = true
+
+-- Use tabs for Go files only.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  callback = function()
+      -- We set buffer-local options: we may have multiple buffers not all in Go!
+      vim.bo.expandtab = false
+      vim.bo.tabstop = 4
+      vim.bo.shiftwidth = 4
+      vim.bo.smartindent = true
+  end,
+})
 
 -- }}}
+
+-- Format Go files with goimports with <leader>gi in normal mode.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  callback = function()
+    vim.keymap.set("n", "<leader>gi", function()
+      vim.cmd("write")
+
+      local output = vim.fn.systemlist("goimports -w " .. vim.fn.expand("%"))
+      local retcode = vim.v.shell_error
+
+      if retcode ~= 0 then
+        vim.notify("goimports failed: " .. table.concat(output, "\n"), vim.log.levels.ERROR)
+        return
+      end
+
+      vim.cmd("edit")
+      vim.notify("goimports executed", vim.log.levels.INFO)
+    end, { buffer = true, desc = "Format buffer with goimports" })
+  end,
+})
 
 -- Load 'redact_pass', a 'pass' plugin to improve secutiry when editing a
 -- password using Neovim. If not available, ignore it, maybe 'pass' is not

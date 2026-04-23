@@ -171,6 +171,9 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # Intercept netbird calls.
 alias netbird='netbird-wrap'
 
+# Zip all directories in the current directory.
+alias zip_dir='for d in */ ; do zip -r "${d%/}.zip" "$d"; done'
+
 # rsync alias for a rapid sync.
 alias rsync-util='rsync --archive --verbose --compress --delete --human-readable'
 

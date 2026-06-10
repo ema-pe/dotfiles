@@ -75,7 +75,7 @@ vim.opt.colorcolumn = "+1"
 -- Tab and spaces settings {{{
 
 -- The default values are 8 spaces for a tab. But by default I prefer 4 spaces.
-vim.opt.tabstop = 4 -- Show 4 spaces for each tab.
+vim.opt.tabstop = 4 -- Set 4 spaces for a tab when is read.
 vim.opt.shiftwidth = 4 -- Set 4 spaces when inserting a tab.
 vim.opt.expandtab = true -- Insert spaces instead of tab.
 

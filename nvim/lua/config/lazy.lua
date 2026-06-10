@@ -1,4 +1,11 @@
--- Bootstrap lazy.nvim
+-- vim:foldmethod=marker
+--
+-- lazy.nvim bootstrapping and configuration.
+--
+-- Copyright (c) 2026 Emanuele Petriglia (ema-pe) <inbox@emanuelepetriglia.com>.
+-- All right reserved. This script is licensed under the MIT license.
+
+-- Standard installation from https://lazy.folke.io/installation
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -21,29 +28,26 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    -- import your plugins
-    -- { import = "plugins" },
-    
-    -- Add modus colorscheme plugin.
-    -- See: https://github.com/miikanissi/modus-themes.nvim
-    {"miikanissi/modus-themes.nvim", priority = 1000, opts = {variant="tinted"}},
+-- Plugins to download and load automatically.
+local plugins = {
+  -- Colorscheme.
+  -- See: https://github.com/miikanissi/modus-themes.nvim
+  {
+    "miikanissi/modus-themes.nvim",
+    priority = 1000,
+    opts = { variants = "tinted" },
+  },
+}
 
-    -- wrapping.nvim: handle soft/hard wrap mainly on text (not code) files.
-    -- See: https://github.com/andrewferrier/wrapping.nvim
-    {
-        "andrewferrier/wrapping.nvim",
-        config = function()
-            require("wrapping").setup()
-        end
-    },
+-- Setup and start lazy.nvim.
+require("lazy").setup({
+  spec = plugins,
+
+  install = {
+    colorscheme = { "modus" },
   },
 
-  -- Set colorscheme.
-  install = {colorscheme = {"modus"}},
-
-  -- Automatically check for plugin updates.
-  checker = {enabled = true},
+  checker = {
+    enabled = true,
+  },
 })

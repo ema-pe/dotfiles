@@ -2,11 +2,11 @@
 #
 # This script open gpxsee with GPX files of the current directory that are close
 # to a given location. Current supported location are "rome", "milan", "verona",
-# and "salerno". The filter's radius is 100 chilometers.
+# and "salerno". The filter's radius is 100 kilometers.
 #
 # See GPXSee website for more info: https://www.gpxsee.org/
 #
-# Copyright (c) 2022-2025 Emanuele Petriglia <inbox@emanuelepetriglia.com>
+# Copyright (c) 2022, 2025-2026 Emanuele Petriglia <inbox@emanuelepetriglia.com>
 # All rights reserved. This file is licensed under the MIT license.
 
 import sys
@@ -75,8 +75,13 @@ def main(location):
         print("No files to load")
         return
 
-    # Last thing to do: run gpxsee with filtered GPX files.
-    subprocess.run(["gpxsee"] + saved)
+    try:
+        # Start gpxsee with the filtered GPX tracks.
+        print(f"Starting gpxsee with {len(saved)} GPX tracks...")
+        subprocess.run(["gpxsee"] + saved)
+    except KeyboardInterrupt:
+        print("Process gpxsee interrupted")
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:

@@ -433,13 +433,6 @@ ed_module_gpg() {
   done
 }
 
-MODULES["lightdm"]="link LightDM configuration"
-ed_module_lightdm() {
-  ed_make_symlink "$REPO_PATH/lightdm/lightdm.conf" \
-                  "/usr/share/lightdm/lightdm.conf.d/70_start_xfce_session.conf"\
-                  sudo
-}
-
 MODULES["neovim"]="install neovim configuration"
 ed_module_neovim() {
   local src_path dst_path

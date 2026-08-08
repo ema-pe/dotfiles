@@ -22,7 +22,6 @@
   - [gpg](#gpg)
   - [gtk](#gtk)
   - [icon](#icon)
-  - [lightdm](#lightdm)
   - [packages](#packages)
   - [python](#python)
   - [thunar](#thunar)
@@ -241,16 +240,6 @@ This module just installs and activate Arc-Dark GTK theme.
 ### icon
 
 This module just installs and activate `papirus-icon-theme` icon theme.
-
----
-
-### lightdm
-
-[LightDM](https://github.com/canonical/lightdm) is a desktop manager easy to use, flexible and lightweight. I use it simply because it is pre-installed on Fedora. 
-
-I prefer an auto login method because the disk is encrypted and the computer have only one user.  I do not want to type two password when I boot the computer, and the second is useless because if someone find the disk password he can grab the data without problems.  A display manager is also useless in my case because I have only one user, but I keep it to have a "modern" desktop. 
-
-> **Important:** **DO NOT LOCK THE SCREEN**. If you lock the screen and go back to the greeter, it crashes.  I don't know why. 
 
 ---
 

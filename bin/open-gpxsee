@@ -27,7 +27,6 @@ def distance(p1, p2):
     plat1 = lat1 * math.pi / 180
     plat2 = lat2 * math.pi / 180
 
-    dlat = (lat2 - lat1) * math.pi / 180
     dlon = (lon2 - lon1) * math.pi / 180
 
     # This is the equirectangular approximation.
@@ -68,7 +67,7 @@ def main(location):
             chunk = file.read(1024)
 
             res = regex.search(chunk)
-            if res == None:
+            if res is None:
                 print(f"Skipping {path}, it does not have latitude and longitude")
                 continue
 

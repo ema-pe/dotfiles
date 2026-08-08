@@ -49,7 +49,7 @@ for input in sys.argv[1:]:
 
     with open(output, "w") as out:
         for paragraph in xml.getroot().findall(elems, xml_ns):
-            if paragraph.text == None:  # Blank line.
+            if paragraph.text is None:  # Blank line.
                 print(file=out)
             else:
                 print("".join(paragraph.itertext()), file=out)

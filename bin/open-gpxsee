@@ -15,36 +15,43 @@ import math
 import subprocess
 from pathlib import Path
 
+
 # Returns the distance in meters between two points.
 def distance(p1, p2):
-    r = 6371e3 # Eart's radius in meters.
+    r = 6371e3  # Eart's radius in meters.
 
     lat1, lon1 = p1
     lat2, lon2 = p2
 
     # Convert to radians.
-    plat1 = lat1 * math.pi/180
-    plat2 = lat2 * math.pi/180
+    plat1 = lat1 * math.pi / 180
+    plat2 = lat2 * math.pi / 180
 
-    dlat = (lat2 - lat1) * math.pi/180
-    dlon = (lon2 - lon1) * math.pi/180
+    dlat = (lat2 - lat1) * math.pi / 180
+    dlon = (lon2 - lon1) * math.pi / 180
 
     # This is the equirectangular approximation.
     # Thanks to: http://www.movable-type.co.uk/scripts/latlong.html
     x = dlon * math.cos((plat1 + plat2) / 2)
     y = plat2 - plat1
-    d = math.sqrt(x*x + y*y) * r
+    d = math.sqrt(x * x + y * y) * r
 
     return d
 
-locations = {"rome": (41.89074, 12.49247),
-             "milan": (45.46464, 9.19205),
-             "verona": (45.43963, 10.99583),
-             "salerno": (40.67545, 14.79328)}
+
+locations = {
+    "rome": (41.89074, 12.49247),
+    "milan": (45.46464, 9.19205),
+    "verona": (45.43963, 10.99583),
+    "salerno": (40.67545, 14.79328),
+}
+
 
 def main(location):
     if location not in locations:
-        print(f"Unrecognized location {location!r}, must be one of {list(locations.keys())}")
+        print(
+            f"Unrecognized location {location!r}, must be one of {list(locations.keys())}"
+        )
         sys.exit(1)
 
     # Regex to extract the latitude and longitude of the first track point (eg.
@@ -54,7 +61,7 @@ def main(location):
     # It scans all GPX files and save those that are close to the given
     # location.
     saved = []
-    for path in Path('.').glob('*.gpx'):
+    for path in Path(".").glob("*.gpx"):
         with path.open() as file:
             # In a GPX file it should be enough to read 1024 character to have
             # the first track point.
@@ -62,11 +69,11 @@ def main(location):
 
             res = regex.search(chunk)
             if res == None:
-                print(f'Skipping {path}, it does not have latitude and longitude')
+                print(f"Skipping {path}, it does not have latitude and longitude")
                 continue
 
-            lat = float(res.group('lat'))
-            lon = float(res.group('lon'))
+            lat = float(res.group("lat"))
+            lon = float(res.group("lon"))
 
             if distance(locations[location], (lat, lon)) < 100000:
                 saved.append(path)
@@ -83,15 +90,15 @@ def main(location):
         print("Process gpxsee interrupted")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print('usage: open-gpxsee LOCATION')
-        print(f'LOCATION must be one of {list(locations.keys())}')
+        print("usage: open-gpxsee LOCATION")
+        print(f"LOCATION must be one of {list(locations.keys())}")
         sys.exit(1)
 
     if sys.argv[1] == "--help" or sys.argv[1] == "-h":
-        print('usage: open-gpxsee LOCATION')
-        print(f'LOCATION must be one of {list(locations.keys())}')
+        print("usage: open-gpxsee LOCATION")
+        print(f"LOCATION must be one of {list(locations.keys())}")
         sys.exit(0)
 
     main(sys.argv[1])

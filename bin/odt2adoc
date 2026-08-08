@@ -19,10 +19,12 @@ import sys
 import zipfile
 import xml.etree.ElementTree as et
 
-xml_ns = {'text': 'urn:oasis:names:tc:opendocument:xmlns:text:1.0',
-          'office': 'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
-          'style': 'urn:oasis:names:tc:opendocument:xmlns:style:1.0',
-          'fo': 'urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0'}
+xml_ns = {
+    "text": "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
+    "office": "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
+    "style": "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
+    "fo": "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
+}
 
 if len(sys.argv) < 2:
     print("No file given.", file=sys.stderr)
@@ -30,24 +32,24 @@ if len(sys.argv) < 2:
 
 for input in sys.argv[1:]:
     try:
-        with zipfile.ZipFile(input) as zip, zip.open('content.xml') as file:
+        with zipfile.ZipFile(input) as zip, zip.open("content.xml") as file:
             xml = et.parse(file)
     except (KeyError, zipfile.BadZipFile):
         print(f"'{input}' is not a OpenDocument file.", file=sys.stderr)
         continue
 
-    elems = './office:body/office:text/text:p'
+    elems = "./office:body/office:text/text:p"
 
     # Get the new filename (eg. example.odt -> example.adoc).
-    if input.endswith('.odt'):
-        output = input[:-3] + 'adoc'
+    if input.endswith(".odt"):
+        output = input[:-3] + "adoc"
     else:
         print(f"'{input}' has not '.odt' suffix", file=sys.stderr)
         continue
 
-    with open(output, 'w') as out:
+    with open(output, "w") as out:
         for paragraph in xml.getroot().findall(elems, xml_ns):
-            if paragraph.text == None: # Blank line.
+            if paragraph.text == None:  # Blank line.
                 print(file=out)
             else:
                 print("".join(paragraph.itertext()), file=out)

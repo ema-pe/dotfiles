@@ -1,9 +1,9 @@
-image: fedora:37
+image: fedora:44
 
 before_script:
   - cat /etc/os-release
   - dnf --version
-  - dnf --assumeyes install ShellCheck findutils make python3-flake8 python3-mypy
+  - dnf --assumeyes install shellcheck findutils make ruff
 
 lint:
   stage: test

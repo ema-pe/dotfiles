@@ -141,8 +141,7 @@ netbird-wrap() {
 #
 # Source: https://blog.feld.me/posts/2025/12/tmux-ssh-agent-forwarding/
 fixssh() {
-    eval $(tmux show-env \
-        | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
+    eval "$(tmux show-env | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')"
 }
 
 # }}}
@@ -172,6 +171,7 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 alias netbird='netbird-wrap'
 
 # Zip all directories in the current directory.
+# shellcheck disable=SC2154
 alias zip_dir='for d in */ ; do zip -r "${d%/}.zip" "$d"; done'
 
 # rsync alias for a rapid sync.

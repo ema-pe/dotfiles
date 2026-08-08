@@ -12,14 +12,15 @@
 # All rights reserved. This file is licensed under the MIT license.
 
 # Disable SC1091: doesn't follow other Bash sources.
-shellcheck_opts = --color=always --exclude=SC1091
+shellcheck_opts = --color=always --exclude=SC1091,SC2329
 
 # Disable E261: "at least two spaces before inline comment".
 flake8_opts = --max-line-length=80 --extend-ignore=E261
 
 # Get only the files that are written in Bash.
 # Note that I need to use a double $ to avoid Makefile variable expansion!
-bash_scripts = $(shell grep -rl -e "^\#!/usr/bin/env bash" | grep -v -e "\.swp$$")
+bash_scripts = $(shell find . -type f -exec grep -l '^#!/usr/bin/env bash' {} +)
+#bash_scripts = $(shell grep -rl -e "^\#!/usr/bin/env bash" | grep -v -e "\.swp$$")
 
 # Get only the files that are written in Python 3.
 python_scripts = $(shell grep -rl bin/* -e "^\#!/usr/bin/env python3")

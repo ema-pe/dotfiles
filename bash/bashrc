@@ -6,7 +6,7 @@
 # This file is called every time a shell is started. It is also called by
 # '.bash_profile' only once.
 #
-# Copyright (c) Emanuele Petriglia <inbox@emanuelepetriglia.com> 2018-2019
+# Copyright (c) Emanuele Petriglia <inbox@emanuelepetriglia.com> 2018-2026
 # This file is lincensed under the MIT license.
 
 # Bash settings {{{
@@ -149,18 +149,46 @@ fixssh() {
 
 # Increase number of commands stored in memory and on disk.
 export HISTSIZE=10000
-export HISTFILESIZE=10000
+export HISTFILESIZE=20000
 
-# Append commands on disk instead of overwriting. This is useful with multiple
-# concurrent sessions.
+# Don't store duplicates and don't store commands beginning with a space.
+export HISTCONTROL=ignoreboth:erasedups
+
+# Ignore some useless commands.
+export HISTIGNORE='ls:ll:la:pwd:clear:exit:history'
+
+# Append instead of overwriting ~/.bash_history. Useful with multiple Bash
+# sessions.
 shopt -s histappend
 
 # More human-readable format.
 export HISTTIMEFORMAT="[%F %T] "
 
-# Force prompt to write history after every command.
-# http://superuser.com/questions/20900/bash-history-loss
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+# Write every command to ~/.bash_history immediately.
+# Also import commands written by other Bash sessions.
+PROMPT_COMMAND="history -a; history -n${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+
+# Map Ctrl+R to run fzf, if available.
+if command -v fzf >/dev/null 2>&1; then
+    if fzf --bash >/dev/null 2>&1; then
+        # New fzf
+        eval "$(fzf --bash)"
+    else
+        # Old fzf
+        for fzf_dir in \
+            /usr/share/fzf \
+            /usr/share/doc/fzf/examples \
+            /usr/local/share/fzf \
+            "$HOME/.fzf/shell" \
+            "$HOME/.fzf"
+        do
+            if [[ -f "$fzf_dir/key-bindings.bash" ]]; then
+                source "$fzf_dir/key-bindings.bash"
+                break
+            fi
+        done
+    fi
+fi
 
 # }}}
 

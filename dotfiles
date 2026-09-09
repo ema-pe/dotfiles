@@ -265,7 +265,7 @@ ed_module_packages() {
 
   ed_install "pass" "thunderbird" "vlc" "ffmpeg" "telegram-desktop" "gxpsee" \
     "ImageMagick" "syncthing" "ShellCheck" "libheif-tools" \
-    "librsvg2-tools" "tmux" "neovim"
+    "librsvg2-tools" "tmux" "neovim" "fzf"
 }
 
 MODULES["drawio"]="install draw.io as AppImage"

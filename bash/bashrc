@@ -27,11 +27,13 @@ export PS1="[\u@\h \[\e[36m\]\W\[\e[m\]]\\$ "
 # Enable SSH support for gpg-agent.
 export SSH_AUTH_SOCK="/run/user/$EUID/gnupg/S.gpg-agent.ssh"
 
-# Default editor.
-export EDITOR=nvim
+# Use neovim as default editor, but it is not installed on all machines I use.
+if command -v nvim &>/dev/null; then
+    export EDITOR=nvim
+else
+    export EDITOR=vi
+fi
 
-export ANDROID_HOME=/home/emanuele/.local/opt/android/
-export ANDROID_SDK_ROOT=/home/emanuele/.local/opt/android/
 export GRADLE_OPTS="-Dorg.gradle.daemon=false"
 
 # }}}
@@ -105,21 +107,10 @@ ssh-jump() {
   ssh -J emanuele@"$middlehost" "$destination"
 }
 
-# Automatically restart an SSH connection if it dies.
-autossh() {
-  while true
-  do
-    echo "Executing: 'ssh $*'"
-    ssh "$@"
-    if [ "$?" -ne 255 ]; then
-      break
-    fi
-    clear
-    sleep 5
-  done
-}
-
 # Intercept the netbird program to start/stop the systemd service if needed.
+#
+# This is necessary because I don't keep the netbird daemon active when I'm not
+# using it.
 netbird-wrap() {
   if [[ "$1" == "up" ]]; then
     echo "-- Running: sudo systemctl start netbird"
@@ -239,9 +230,7 @@ alias ..="cd .."
 # Prints all installed packages that requires the given package.
 alias why="rpm -q --whatrequires"
 
-# Start NeoVIM instead of VIM.
-alias vim="nvim"
-
+# If available, use kitty's SSH wrapper.
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 # }}}

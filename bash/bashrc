@@ -188,6 +188,9 @@ fi
 # Intercept netbird calls.
 alias netbird='netbird-wrap'
 
+# Manually sync two unrelated git repositories.
+alias reposync="rsync -av --delete --exclude='.git'"
+
 # Zip all directories in the current directory.
 # shellcheck disable=SC2154
 alias zip_dir='for d in */ ; do zip -r "${d%/}.zip" "$d"; done'

@@ -1,20 +1,31 @@
+# This is my Git personal configuration. Please read before use!
+
 [core]
-	editor = nvim
+    editor = nvim
     excludesfile = ~/.gitignore
+
 [user]
+    # If you use this config, make sure to change these!
     name = Emanuele Petriglia
     email = inbox@emanuelepetriglia.com
     signingkey = 0xF3DB36543FEA3143
+
 [commit]
     gpgSign = true
+    # Show whole diff while writing commit description.
+    verbose = true
+
 [push]
     default = simple
-[alias]
-    st = status
-    cm = commit
-    pu = push
-    a = add
+    autoSetupRemove = true
+    followTags = true
 
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+
+[alias]
     # To view the number of commits for each member.
     stats = shortlog -sn
 
@@ -23,3 +34,18 @@
 
     # Update every submodule (needs a commit if there is an update!)
     submodule-update = submodule foreach git pull origin master
+
+[column]
+    # Enable columnar layout when git thinks is appropriate.
+    ui = auto
+
+[tag]
+    # Sort tags by version number, not plain numbers.
+    sort = version:refname
+
+[diff]
+    # Use better default configs for diffs. They're extremely personal.
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true

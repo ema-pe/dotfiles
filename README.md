@@ -29,7 +29,6 @@
   - [tlp](#tlp)
   - [xfce4](#xfce4)
   - [xfce4-keyboard-shortcuts](#xfce4-keyboard-shortcuts)
-  - [xfce4-terminal](#xfce4-terminal)
   - [xfwm4](#xfwm4)
   - [youtube-dl](#youtube-dl)
 - [Makefile](#makefile)
@@ -304,7 +303,7 @@ This module will install tlp, copy my configuration, start tlp and enable the un
 
 ### xfce4
 
-This modules installs my configuration of Xfce desktop environment.  Some applications, like `xfce4-terminal` or `thunar` are configured by a different module.
+This modules installs my configuration of Xfce desktop environment.  Some applications, like `thunar`, are configured by a different module.
 
 It is difficult to configure Xfce applications, because they do not use a plain text configuration, instead they use `xfconf`.
 
@@ -314,37 +313,30 @@ This modules install my `xfce4-panel` configuration, font and size settings for 
 
 ### xfce4-keyboard-shortcuts
 
-This module installs my custom application shortcuts to Xfce.  It is a distinct module because I change often these keybindings.  These are the shortcuts (for an updated list always check the source code! ):
+This module installs my custom application shortcuts to Xfce.  It is a distinct module because I change often these keybindings. These are the shortcuts (for an updated list always check the source code!):
 
-* _Super + v_: `vlc`
-* _Super + r_: `xfce4-appfinder --disable-server --collapsed`
-* _Super + u_: `xfce4-taskmanager`
-* _Super + e_: `xfce4-terminal --drop-down`
-* _Super + t_: `xfce4-terminal --maximize`
-* _Super + l_: `screen-off`
-* _Shift + Print_: `xfce4-screenshooter --window`
-* _Primary + Print_: `xfce4-screenshooter --region`
-* _Alt + Print_: `xfce4-screenshooter --region`
-* _Print_: `xfce4-screenshooter --fullscreen`
-* _Super + s_: `telegram-desktop`
-* _Super + f_: `thunar`
-* _Super + x_: `mousepad`
-* _Super + q_: `firefox-tmp`
-* _Super + w_:  `firefox`
-* _Super + m_: `thunderbird`
-* _Super + r_: `xfce4-appfinder --collapsed`
-
----
-
-### xfce4-terminal
-
-This module installs my custom theme, but it doesn't activate it. Other settings are not touched.
+* Super + v: `vlc`
+* Super + r: `xfce4-appfinder --disable-server --collapsed`
+* Super + u: `xfce4-taskmanager`
+* Super + e: long command, starts Kitty in a dropdown mode
+* Super + t: `kitty --single-instance --start-as maximized`
+* Super + l: `screen-off`
+* Shift + Print: `xfce4-screenshooter --window`
+* Primary + Print: `xfce4-screenshooter --region`
+* Alt + Print: `xfce4-screenshooter --region`
+* Print: `xfce4-screenshooter --fullscreen`
+* Super + s: `telegram-desktop`
+* Super + f: `thunar`
+* Super + x: `mousepad`
+* Super + q: `firefox-tmp`
+* Super + w: `firefox`
+* Super + m: `thunderbird`
 
 ---
 
 ### xfwm4
 
-I use Thinble Xfwm theme.  In my repository under [xfwm4](xfwm4) diretory you can find the theme, but the original project is hosted on [DevianArt](https://paldepind.deviantart.com/art/Thinble-362276066). The following text is copied from DevianArt. 
+I use Thinble Xfwm theme. In my repository under [xfwm4](xfwm4) diretory you can find the theme, but the original project is hosted on [DevianArt](https://paldepind.deviantart.com/art/Thinble-362276066). The following text is copied from DevianArt. 
 
 Thinble is a Xfwm theme with no title bar and a thin border. It was created to be a good looking, simple and space efficient window theme for people who mainly manage their windows using key bindings.
 

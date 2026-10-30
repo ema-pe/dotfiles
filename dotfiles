@@ -462,17 +462,6 @@ ed_module_python() {
   ed_install "python3-docs"
 }
 
-MODULES["xfce4-terminal"]="link configuration of xfce4-terminal"
-ed_module_xfce4-terminal() {
-  local dest_path src_path
-
-  dest_path="$HOME/.config/xfce4/terminal"
-  src_path="$REPO_PATH/xfce4/xfce4-terminal"
-
-  #ed_make_symlink "$src_path/terminalrc" "$dest_path"
-  #ed_make_symlink "$src_path/colorschemes" "$dest_path"
-}
-
 MODULES["xfce4"]="link configuration of various Xfce apps"
 ed_module_xfce4() {
   # I use 'xfce4-panel-profiles' to make backup and restore my 'xfce4-panel'

@@ -1,0 +1,14 @@
+{
+  "spinnerTipsEnabled": false,
+  "prefersReducedMotion": true,
+  "permissions": {
+    "defaultMode": "default"
+  },
+  "enabledPlugins": {
+    "cc-plugin-you-should-know@builtin": false
+  },
+  "promptSuggestionEnabled": false,
+  "timeFormat": "24-hour",
+  "theme": "dark",
+  "autoContinueAtUsageLimit": false
+}

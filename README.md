@@ -14,6 +14,7 @@
   - [bin](#bin)
   - [bluetooth](#bluetooth)
   - [clean](#clean)
+  - [claude](#claude)
   - [dotfiles](#dotfiles)
   - [firefox](#firefox)
   - [focuswriter](#focuswriter)
@@ -128,6 +129,12 @@ This module just disables Bluetooth service via systemd, because it is enabled b
 ### clean
 
 This module just removes via `dnf` all pre-installed Fedora packaged that I don't use. For a list of these packages, open the script and go to the `clean` module.
+
+---
+
+### claude
+
+This module installs my custom Claude Code settings to `~/.claude/settings.json`. Does not install the tool itself, for now.
 
 ---
 

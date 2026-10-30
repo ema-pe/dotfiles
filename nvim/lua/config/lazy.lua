@@ -1,11 +1,11 @@
 -- vim:foldmethod=marker
 --
--- lazy.nvim bootstrapping and configuration.
+-- My personal lazy.nvim bootstrapping and configuration.
 --
 -- Copyright (c) 2026 Emanuele Petriglia (ema-pe) <inbox@emanuelepetriglia.com>.
 -- All right reserved. This script is licensed under the MIT license.
 
--- Standard installation from https://lazy.folke.io/installation
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -22,32 +22,25 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
+-- Make sure to setup `mapleader` and `maplocalleader` before loading lazy.nvim
+-- so that mappings are correct.
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Plugins to download and load automatically.
-local plugins = {
-  -- Colorscheme.
-  -- See: https://github.com/miikanissi/modus-themes.nvim
-  {
-    "miikanissi/modus-themes.nvim",
-    priority = 1000,
-    opts = { variants = "tinted" },
-  },
-}
-
--- Setup and start lazy.nvim.
+-- Setup lazy.nvim
 require("lazy").setup({
-  spec = plugins,
+  spec = {
+    -- Do not use plugins for now.
+    -- { import = "plugins" },
 
-  install = {
-    colorscheme = { "modus" },
+    -- Add modus colorscheme plugin.
+    -- See: https://github.com/miikanissi/modus-themes.nvim
+    {"miikanissi/modus-themes.nvim", priority = 1000, opts = {variants="tinted"}},
   },
 
-  checker = {
-    enabled = true,
-  },
+  -- Set colorscheme.
+  install = {colorscheme = {"modus"}},
+
+  -- Automatically check for plugin updates.
+  checker = {enabled = true},
 })

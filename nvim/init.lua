@@ -55,8 +55,8 @@ vim.keymap.set("n", "<space>", "za")
 
 -- }}}
 
--- Enables 24-bit RGB color (I use xfce4-terminal, so I'm sure that it supports
--- true colors).
+-- Enables 24-bit RGB color (I use Kitty, so I'm sure that it supports true
+-- colors).
 vim.opt.termguicolors = true
 
 -- TODO: add a theme.
@@ -97,6 +97,15 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Use 2 spaces only for some languages.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "javascript", "typescript", "json", "yaml" },
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+  end,
+})
+
 -- }}}
 
 -- Format Go files with goimports with <leader>gi in normal mode.
@@ -121,9 +130,14 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Load 'redact_pass', a 'pass' plugin to improve secutiry when editing a
--- password using Neovim. If not available, ignore it, maybe 'pass' is not
--- installed.
-pcall(vim.cmd, "source /usr/share/doc/pass/vim/redact_pass.vim")
+-- password using Neovim.
+local redact_pass = "/usr/share/doc/pass/vim/redact_pass.vim"
+if vim.fn.filereadable(redact_pass) == 1 then
+  vim.cmd.source(redact_pass)
+end
+
 
 require("config.lazy")
 vim.cmd([[colorscheme modus]])
+
+require("config.lsp")

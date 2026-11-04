@@ -8,10 +8,14 @@
     # If you use this config, make sure to change these!
     name = Emanuele Petriglia
     email = inbox@emanuelepetriglia.com
+{{- if .gpgsign }}
     signingkey = 0xF3DB36543FEA3143
+{{- end }}
 
 [commit]
+{{- if .gpgsign }}
     gpgSign = true
+{{- end }}
     # Show whole diff while writing commit description.
     verbose = true
 

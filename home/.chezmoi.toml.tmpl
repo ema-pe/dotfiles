@@ -1,0 +1,4 @@
+{{- $gpgsign := promptBoolOnce . "gpgsign" "Enable GPG sign for commits" false -}}
+
+[data]
+    gpgsign = {{ $gpgsign }}

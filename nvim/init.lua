@@ -59,9 +59,6 @@ vim.keymap.set("n", "<space>", "za")
 -- colors).
 vim.opt.termguicolors = true
 
--- TODO: add a theme.
--- vim.opt.colorscheme = "???"
-
 -- Highlight the final spaces in a line and tabs. 
 vim.opt.listchars = {trail = "‧", tab = "››"}
 
@@ -71,6 +68,16 @@ vim.opt.textwidth = 80
 -- Color the next column after textwidth, so I can understand where is the
 -- limit.
 vim.opt.colorcolumn = "+1"
+
+-- Wrap text only when I want (with "gq" operator). For this reason I disabled
+-- the automatic wrapping on text (t) and comments (c) while typing.
+vim.opt.formatoptions:remove({ "t", "c" })
+vim.api.nvim_create_autocmd("FileType", {
+    -- Many ftplugins reset 'formatoptions', so reapply it on FileType.
+    callback = function()
+        vim.opt_local.formatoptions:remove({ "t", "c" })
+    end,
+})
 
 -- Tab and spaces settings {{{
 

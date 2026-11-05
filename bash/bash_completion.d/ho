@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-#
-# Bash completion for 'ho' script.
-#
-# Copyright (c) 2019 Emanuele Petriglia <inbox@emanuelepetriglia.com>
-# All rights reserved. This file is licensed under the MIT license.
-
-complete -W "--user --password --help -u -p -h" -- ho

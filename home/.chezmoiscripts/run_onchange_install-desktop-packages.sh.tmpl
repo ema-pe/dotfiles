@@ -1,0 +1,43 @@
+{{ if .desktop -}}
+#!/usr/bin/env bash
+#
+# This script installs packages with dnf. Intended to be used on a desktop and
+# on Fedora.
+set -o errexit -o nounset -o pipefail
+
+packages=(
+    pass
+    thunderbird
+    vlc
+    ffmpeg
+    telegram-desktop
+    gpxsee
+    ImageMagick
+    syncthing
+    libheif-tools
+    librsvg2-tools
+    tmux
+    neovim
+    fzf
+    ripgrep
+    focuswriter
+    gnu-free-serif-fonts
+    hunspell-it
+)
+
+
+if ! command -v dnf &>/dev/null; then
+    echo "Warning: dnf not found, desktop packages were not installed" >&2
+    exit 0
+fi
+
+repository="https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+
+# Install RPM Fusion (free) repository.
+if [[ ! -f /etc/yum.repos.d/rpmfusion-free.repo ]]; then
+    echo "Installing RPM Fusion free repository (requires root)"
+    sudo dnf install "$repository"
+fi
+
+sudo dnf install --assumeyes "${packages[@]}"
+{{ end -}}

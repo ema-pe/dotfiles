@@ -288,28 +288,6 @@ ed_module_drawio() {
   fi
 }
 
-MODULES["focuswriter"]="install and configure FocusWriter"
-ed_module_focuswriter() {
-  ed_install "focuswriter" "gnu-free-serif-fonts" "hunspell-it"
-
-  local dst_theme_path dst_conf_path src_path
-
-  dst_theme_path="$HOME/.local/share/GottCode/FocusWriter"
-  dst_conf_path="$HOME/.config/GottCode"
-  src_path="$REPO_PATH/focuswriter"
-
-  mkdir -p "$dst_theme_path"
-  mkdir -p "$dst_conf_path"
-
-  # Theme.
-  ed_make_symlink "$src_path/emanuele.theme" \
-                  "$dst_theme_path/Themes/emanuele.theme"
-
-  # Settings.
-  ed_make_symlink "$src_path/focuswriter.conf" \
-                  "$dst_conf_path/FocusWriter.conf"
-}
-
 MODULES["youtube-dl"]="install updated youtube-dl"
 ed_module_youtube-dl() {
   local url dest_dir dest

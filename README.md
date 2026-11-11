@@ -17,7 +17,6 @@
   - [claude](#claude)
   - [dotfiles](#dotfiles)
   - [firefox](#firefox)
-  - [focuswriter](#focuswriter)
   - [font](#font)
   - [git](#git)
   - [gpg](#gpg)
@@ -187,16 +186,6 @@ The `user.js` file is a file with all options to customize Firefox behavior. Man
 I use [ghacks' `user.js`](https://github.com/ghacksuserjs/ghacks-user. js), an `user.js` enhanced for privacy.  I don't like some options, so I have also a custom [`user.js`](firefox/user.js) that overrides some options.
 
 This module will download the latest version of ghacks' `user.js` and move that file to the Firefox profile with suffix `default-release`. At the end it appends my custom options to `user.js` file on the profile.
-
----
-
-### focuswriter
-
-[FocusWriter](https://gottcode.org/focuswriter) is a simple, distraction free text editor.  I use it to write short stories and novels, with a custom theme and configuration.
-
-This modules will install `focuswriter`, and copy my configuration and custom theme. 
-
-> **Warning:** My custom theme and configuration have my username hard-coded! 
 
 ---
 

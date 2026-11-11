@@ -310,31 +310,6 @@ ed_module_icon() {
   ed_xfconf "xsettings" "/Net/IconThemeName" "Papirus-Dark"
 }
 
-MODULES["bin"]="create symlinks for custom scripts on ~/.local/bin"
-ed_module_bin() {
-  local bin_path="$HOME/.local/bin"
-
-  mkdir --parents "$bin_path"
-
-  for script in "$REPO_PATH"/bin/* ; do
-    ed_make_symlink "$script" "$bin_path/${script##*/}"
-  done
-}
-
-MODULES["git"]="install 'git' and link the configuration"
-ed_module_git() {
-  local dest_path="$HOME"
-
-  ed_install "git"
-
-  mkdir --parents "$dest_path"
-
-  for config in "$REPO_PATH"/git/* ; do
-    # Because git config are dotfiles, they starts with '.'.
-    ed_make_symlink "$config" "$dest_path/.${config##*/}"
-  done
-}
-
 MODULES["tlp"]="install 'tlp', copy the config, enable and start it"
 ed_module_tlp() {
   local src dst
@@ -352,11 +327,6 @@ ed_module_tlp() {
   sudo systemctl enable tlp
   sudo systemctl start tlp
   ed_log "tlp installed and started successfuly!"
-}
-
-MODULES["dotfiles"]="install itself to '~/.local/bin'"
-ed_module_dotfiles() {
-  ed_make_symlink "$REPO_PATH/$PROGRAM" "$HOME/.local/bin/$PROGRAM"
 }
 
 MODULES["clean"]="remove various packages that I don't use"

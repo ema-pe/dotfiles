@@ -1,6 +1,6 @@
 {{/* Common variables used at bootstrap. */}}
 {{- $gpgsign := promptBoolOnce . "gpgsign" "Enable GPG sign for commits" false -}}
-{{- $desktop := promptBoolOnce . "desktop" "Is this a desktop environment?" -}}
+{{- $desktop := promptBoolOnce . "desktop" "Is this a desktop environment" -}}
 
 [data]
     gpgsign = {{ $gpgsign }}

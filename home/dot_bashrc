@@ -24,8 +24,10 @@ fi
 # Bash prompt.
 export PS1="[\u@\h \[\e[36m\]\W\[\e[m\]]\\$ "
 
-# Enable SSH support for gpg-agent.
-export SSH_AUTH_SOCK="/run/user/$EUID/gnupg/S.gpg-agent.ssh"
+# Enable SSH support for gpg-agent, only if SSH agent forwarding is not active.
+if [[ -z "${SSH_AUTH_SOCK:-}" || ! -S "$SSH_AUTH_SOCK" ]]; then
+    export SSH_AUTH_SOCK="/run/user/$EUID/gnupg/S.gpg-agent.ssh"
+fi
 
 # Use neovim as default editor, but it is not installed on all machines I use.
 if command -v nvim &>/dev/null; then
